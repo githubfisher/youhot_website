@@ -1,0 +1,128 @@
+<?php
+
+/**
+ * Class Admin/Size
+ * @author fisher
+ * @date 2017-03-15
+ */
+class Size extends Admin_Controller
+{
+    private $conf;
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->load->model('size_model', 'size');
+
+        // 阿里云配置
+        $this->load->config('vendor', true);
+        $this->conf = $this->config->item('vendor')['aliyun'];
+    }
+
+    // 尺码图管理 - 首页
+    public function index(){
+        $this->order_list();
+    }
+
+    // 尺码图 列表
+    public function order_list()
+    {
+        $this->_data['list'] = $this->getAllSizeUrl();
+        $template = 'admin/size/index';
+        $this->template($template, $this->_data);
+        return;
+    }
+
+    /**
+     * 获取全部分类、品牌商品的尺码图
+     * 返回商品尺码图的阿里云地址
+     * @return array
+     * author fisher
+     * date 2017-03-15
+     */
+    public function getAllSizeUrl()
+    {
+        $res = $this->size->get_list_url();
+        return $res;
+    }
+
+    // 新增(上传)尺码图
+    public function  create()
+    {
+        $config['upload_path']      = './tmp/';
+        $config['allowed_types']    = 'gif|jpg|png';
+        $config['max_size']     = 10000; // 10M
+
+        $this->load->library('upload', $config);
+
+        if ( ! $this->upload->do_upload('userfile'))
+        {
+            $data = array(
+                'res' => 1,
+                'hint' => array('error' => $this->upload->display_errors())
+            );
+        } else {
+            $file = $this->upload->data();
+            // echo '<pre>';
+            // var_dump($file);
+            if (file_exists($file['full_path'])) {
+                $file['file_content'] = base64_encode($file['full_path']);
+                $file_url = $this->upload($file);
+            } else {
+                // 图片上传失败
+            }
+        }
+        exit(json_encode(array('url'=>$file_url)));
+    }
+
+    // 阿里云OSS - 上传
+    private function upload($file, $type = 'album')
+    {
+        $this->load->library('aliyun-oss/Common');
+        $bucket = Common::getBucketName();
+        $ossClient = @Common::getOssClient();
+        if (is_null($ossClient)) exit(json_encode(array('error'=>'is null')));
+
+        $fn = $this->_safe_file_name($file['file_name']);
+        $_config = ($type == 'avatar') ? 'aliyun_oss_avatar_dir' : 'aliyun_oss_product_album_dir';
+        $this->load->helper('string');
+        $filename = $this->config->item($_config) . '/' . (random_string('alnum', 6) . '_' . $fn);
+
+        $content = base64_decode($file['file_content']);
+
+        try{
+            $res = $ossClient->putObject($bucket, $filename, $content);
+            echo '<pre>';
+            var_dump($res);
+        } catch(OssException $e) {
+            $this->_error(bp_operation_fail,$e->getMessage());
+            return;
+        }
+        $file_url = $this->config->item('aliyun_oss_img_service_url') . $filename;
+        return $file_url;
+    }
+
+    // 阿里云OSS - 上传 - _safe_file_name
+    private function _safe_file_name($fn){
+        $ext = get_file_ext($fn);
+        return str_replace('=', '', base64_encode($fn)).'.'.$ext;
+    }
+
+    /**
+     * Save product
+     * 根据需求在完善
+     */
+    public function update()
+    {
+        
+    }
+
+    /**
+     * Save product
+     * 根据需求在完善
+     */
+    public function delete()
+    {
+        
+    }
+}

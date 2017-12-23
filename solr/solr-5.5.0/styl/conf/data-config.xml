@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dataConfig>
+  <dataSource type="JdbcDataSource" 
+              driver="com.mysql.jdbc.Driver"
+              url="jdbc:mysql://rds80956t2o7k843i0j2.mysql.rds.aliyuncs.com:3306/styl" 
+              user="style" 
+              password="mhx4khlDb"/>
+  <document>
+    <entity name="order"  
+      pk="order_id"
+      query="select order_id,product_name from deal"
+      deltaImportQuery="SELECT order_id,product_name from deal WHERE id='${dih.delta.id}'"
+      deltaQuery="SELECT order_id FROM deal WHERE create_time > '${dih.last_index_time}'"
+      >
+       <field column="order_id" name="id"/>
+       <field column="product_name" name="name"/>       
+    </entity>
+  </document>
+</dataConfig>

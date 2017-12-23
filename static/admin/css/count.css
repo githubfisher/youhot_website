@@ -1,0 +1,83 @@
+@import url("base.css");
+body{padding:0;margin:0;box-sizing:border-box;}
+.m-center-right{width:83%;height:auto;border-left:1px solid #E5E5E5;
+	background:#fff;}
+.count-box{width:94%;height:100%;background:#fff;margin:0 auto;}
+.count-top{width:100%;height:80px;line-height: 80px;
+	font-weight: bold;color:#000;
+	font-size:20px;}
+	.sousuo-top{width:340px;height:39px;}
+	.sousuo-top input{width:300px;height:35px;
+		background-image: url("/static/admin/images/fangdajing.png");
+		background-size:17px 17px;
+		padding-left:30px;
+		background-repeat: no-repeat;
+		background-position: 10px 10px;
+
+		border:1px solid #B3B3B3 }
+		.count-word{width:100%;height:55px;border-bottom:1px solid #ccc;}
+		.count-s-word{width:90px;height:54px;float:left;
+			font-size:14px;font-weight: bold;
+			margin-left:60px;
+			cursor:pointer;
+			text-align: center;line-height: 53px;
+			}
+		.count-s-word a{color:#000;font-size:14px;}
+		.col-sm-6>#list-table_filter>label{float:left;padding-top:20px;text-align: left;}
+
+
+			.count-select{width:100%;
+				height:106px;
+			    box-sizing: border-box;
+				background:#F4F5F9;
+				border:1px solid #B3B3B3;
+				margin-top:20px;}
+        .count-select .count-top{width:100%;height:50%;
+	             box-sizing:border-box;}
+	             #count-form{width:90%;
+	             	margin-left:30px;
+	             	line-height: 54px;
+	             	color:#111111;
+	             	font-size:14px;
+					 box-sizing:border-box;
+	             	height:54px;}
+	             	 #count-form input{width:118px;height:35px;}
+	             	.count-m{padding-left:60px;}
+	             	.count-top{font-size:14px;
+	             		height:54px;line-height: 54px;
+	             		color:#111;}
+
+.table-count{width:100%;height:auto;
+	padding-bottom:30px;
+border-left:1px solid #ccc;
+border-bottom:1px solid #ccc;
+	border-right:1px solid #ccc;
+	margin-top:20px;
+}
+	             		/*表格开始*/
+	      .count-top select{width:139px;height:35px;}
+	      .table thead{background:#F4F5F9;
+	      	border:1px solid #B3B3B3;}
+	      .table thead tr th{text-align: center;
+	      	line-height:40px;
+	      	border:1px solid #ccc;}
+
+.table tbody tr td{line-height:70px;text-align:center;}
+.pagination{display:block;width:400px;height:27px;margin:0 auto;}
+.count-big-box{width:100%;
+	height:auto;
+	position:relative;
+background:#fff;}
+.dt-head-center{text-align: left!important;padding-left:20px!important;}
+.dt-head-center a{color:#1E1E1E!important;margin-left:10px!important;}
+.dt-head-center a img{margin-right:10px!important;}
+.sorting{text-align: center!important;}
+	.count-users{
+		display:none;
+		width:100%;
+		left:0;top:0;}
+	#btn-day{height:50px;line-height: 50px;}
+    #btn-month{height:50px;line-height: 50px;}
+#count-form input{line-height:37px;text-align: center;
+	border:1px solid #ccc;
+	height:37px;border-radius:4px;box-shadow:none;}

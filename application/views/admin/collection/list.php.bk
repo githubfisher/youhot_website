@@ -1,0 +1,253 @@
+<?php
+$this->layout->load_js('admin/modules/jsrender/jsrender.min.js');
+$this->layout->load_js('admin/js/collection-list.js');
+$this->layout->load_js('admin/plugins/bootstrap/js/bootstrap-confirmation.js');
+//$this->layout->load_css();
+?>
+<style xmlns="http://www.w3.org/1999/html">
+    table.dataTable th {
+        text-align: left;
+    }
+
+    .editable {
+        min-height: 24px;
+        min-width: 30px;
+        border: 1px dashed #efefef;
+        cursor: pointer;
+    }
+
+    .to-extend {
+        height: 75px;
+        overflow: hidden;
+        cursor: pointer;
+        text-overflow: ellipsis;
+    }
+
+    .jieshao {
+          height: 40px;
+          background: black;
+          text-align: center;
+          line-height: 40px;
+          color: #fff
+      }
+
+    ul#collection-list-ctner li {
+        list-style: none;
+        float:left ;
+        margin-left:6%;
+        width:94%;
+        margin-top:40px;
+    }
+    @media (min-width: 768px){
+        ul#collection-list-ctner li {
+            width:44%;
+        }
+    }
+    ul#collection-list-ctner li input:first-child{
+        margin-left:-25px;
+        display: block;
+        float:left;
+        margin-top:50%;
+    }
+
+
+    div.t-row{display:table-row}
+    div.t-cell{display:table-cell}
+    div.vmiddle{vertical-align: middle;width:30px}
+    div.btn-area{
+        margin-top:10px;
+    }
+    div.btn-area>a.btn{
+        width:48%;
+        height:42px;
+        line-height: 27px;
+    }
+    .col-content{
+        border: 1px solid #DBDBDB;
+        padding: 17px 20px 20px 14px;
+        height: 121px;
+        overflow:auto;
+    }
+
+
+
+</style>
+<div class="m-center-right">
+    <div class="m-center-top">
+        <div class="col-sm-4"><h3>专辑管理</h3></div>
+        <div class="col-sm-8"><h3 class="text-right">
+                <a href="/admin/collection/delete" id="col-del" class="btn btn-purple"><i class="icon icon-del"></i>删除专辑</a>
+                <a href="/admin/collection/create" class="collection-add btn btn-light-purple" data-author="<?= $responsible_userid ?>"><i class="icon icon-add"></i>添加专辑</a>
+            </h3>
+        </div>
+
+    </div>
+
+    <script>
+        $(function () {
+            $("#SelectAll").click(function () {
+
+                if ($("#subcheck").attr("checked") != true) {
+                    $("input[name=col-item-checkbox]").attr("checked", true);
+
+                } else {
+                    $("#subcheck").attr("checked", false);
+                    $("#SelectAll").attr("checked", false);
+                    return false;
+
+                }
+            })
+        })
+
+    </script>
+    <div class="m-content">
+        <section class="wrapper" style='width:100%;'>
+            <div class="col-lg-12" style=" padding-bottom:30px">
+                <section class="box ">
+                    <header class="panel_header">
+                        <h2 class="title pull-left"><input type="checkbox" id="SelectAll" value="全选" id="selectAll"/>全选</h2>
+                    </header>
+                    <div class="content-body" style="padding: 0px">
+                        <ul id="collection-list-ctner" class="clearfix">
+                        </ul>
+                    </div>
+                </section>
+            </div>
+        </section>
+    </div>
+</div>
+<script type="text/x-jsrender" id="item-tpl">
+<li>
+    <input type="checkbox" name="collection_ids" value="{{:id}}" id="subcheck"/>
+
+    <div>
+           <a href="/collection/detail?collection_id={{:id}}&rt=mobile" target="_blank"><img src="{{if cover_image}}{{:cover_image}}@140h_1wh{{else}}data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs%3D{{/if}}" alt="{{:title}}" class="img-responsive" data-toggle="tooltip" title="点击预览" /></a>
+            <div class="jieshao" style="">{{:title}}</div>
+            <div class="col-content">{{:description}}</div>
+             <div class="btn-area">
+
+                {{if status==<?= COLLECTION_STATUS_PUBLISHED ?>}}
+                <a href="/admin/collection/unpublish" data-cid="{{:id}}" class="btn btn-default edital btn-updown btn-nocorner" style="">下架</a>
+                {{else status==<?= COLLECTION_STATUS_INAUDIT ?>}}
+                    <?php if (isset($can_audit) && $can_audit): ?>
+                        <a href="/admin/collection/publish" data-cid="{{:id}}" class="btn btn-warning edital btn-updown btn-nocorner" style="">审核并上架</a>
+                        <?php else: ?>
+                            <span class="btn edital btn-warning btn-nocorner">审核中</span>
+                    <?php endif; ?>
+
+                {{else}}
+                    <?php if (isset($can_audit) && $can_audit): ?>
+                        <a href="/admin/collection/publish" data-cid="{{:id}}" class="btn btn-black edital btn-updown btn-nocorner" style="">上架</a>
+                        <?php else: ?>
+                        <a href="/admin/collection/to_audit" data-cid="{{:id}}" class="btn btn-info edital btn-updown btn-nocorner" style="">提交审核</a>
+                    <?php endif; ?>
+                {{/if}}
+                <a href="/admin/collection/{{:id}}/edit" class="btn btn-default btn-nocorner pull-right" {{if status!=<?= COLLECTION_STATUS_DRAFT ?>}}data-toggle="confirmation"{{/if}}><i class="icon icon-edit"></i>编辑</a>
+              </div>
+    </div>
+</li>
+
+
+
+
+
+</script>
+<script>
+    $(function () {
+        var oTable = $('#collection-list-ctner').collectionList({
+            "pageLimit": 10,
+            "itemTpl": $.templates("#item-tpl"),
+            "userid": "<?=$responsible_userid?>",
+            drawCallback: function (settings) {
+                $('[data-toggle="confirmation"]').confirmation({
+                    title: '编辑后需要重新提交审核,确认编辑吗?',
+                    placement: 'top',
+                    href: $(this).attr('href'),
+                    btnOkLabel: '确认',
+                    href: $(this).attr('href')
+                });
+            },
+        });
+        $('.collection-add').on('click', '', function (e) {
+            console.log('col add click');
+            var author = $(this).attr('data-author');
+            $self = $(this);
+            if (author.length < 1) {
+                $.getJSON('/user/designers?rt=json', function (data) {
+                    if (data.res == 0) {
+                        var _designers = data.list;
+                        var _options = [];
+                        $.each(_designers, function (idx, ele) {
+                            _options.push('<option value=' + ele.userid + '>' + ele.nickname + '</option>');
+                        })
+                        var _html = '<select name="author" class="form-control"><option value="0" selected>请选择设计师</option>' + _options.join('') + '</select>';
+                        $(_html).appendTo($("#layout-modal .modal-body"));
+                        $("#layout-modal .modal-body").html(_html);
+                        $("#layout-modal .modal-title").html("选择设计师");
+//                        $("#layout-modal .modal-footer .btn-primary").html("下一步");
+                        $("#layout-modal .modal-footer .btn-primary").on('click', function () {
+                            $("#layout-modal").modal('hide');
+                            $self.trigger('click');
+                        });
+                        $("#layout-modal").modal('show');
+//                        $self.parent().append(_html);
+                    } else {
+                        showErrorMessage(data.hint + '.请稍后再试');
+                    }
+                })
+
+                return false;
+            }
+            if (author.length < 1) {
+                alert('设计师信息为空,请检查');
+                return false;
+            }
+            $.post(CONFIG.collection.create_url, {"rt": 'json', title: "专辑名称", "author": author}, function (data) {
+                if (data.res != 0) {
+                    showErrorMessage(data.hint);
+                } else {
+                    location.href = CONFIG.collection.admin_edit_url_prefix + data.id + '/edit';
+                }
+            }, 'json');
+            return false;
+        });
+        $('#collection-list-ctner').on('click', '.btn-updown', function (e) {
+            $.getJSON($(this).attr('href'), {rt: 'json', collection_id: $(this).data('cid')}, function (data) {
+                if (data.res == "0") {
+                    showSuccess('操作成功');
+                } else {
+                    showErrorMessage(data.hint);
+                }
+            });
+            return false;
+        })
+        $("#col-del").on('click', function (e) {
+            var $checked = $("input[name=collection_ids]:checked");
+            var _cids = $checked.map(function () {
+                return $(this).val();
+            }).get();
+//            oTable.removeFromCache(_cids);
+//            return false;
+            $.getJSON($(this).attr('href'), {rt: 'json', collection_ids: _cids}, function (data) {
+                if (data.res == "0") {
+                    showSuccess('操作成功');
+                    $checked.parents('li').remove();
+                    oTable.removeFromCache(_cids);
+                } else {
+                    showErrorMessage(data.hint);
+                }
+            });
+            return false;
+        });
+        $("#layout-modal").on('change', 'select[name=author]', function () {
+            console.log($(':selected', this).val());
+            $("a.collection-add").attr('data-author', $(':selected', this).val());
+        });
+
+
+//        $('document').on('confirmed.bs.confirmation', '[data-toggle=confirmation]', function() {
+//            console.log(2222222);
+//        });
+    });
+</script>
+

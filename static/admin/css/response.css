@@ -1,0 +1,1603 @@
+@import "base.css";
+/*定义响应式变量*/
+/*页面样式*/
+* {
+  box-sizing: border-box;
+}
+.headbox {
+  width: 100%;
+  height: 30px;
+  background: #eee;
+  border-bottom: 1px solid #ccc;
+}
+.container {
+  width: 650px;
+  height: auto;
+}
+.container:after {
+  content: "";
+  display: block;
+  clear: both;
+}
+.container-fluid {
+  width: 100%;
+  height: auto;
+}
+.container-fluid:after {
+  content: "";
+  display: block;
+  clear: both;
+}
+.container > .row {
+  width: 100%;
+  overflow: hidden;
+}
+.container-fluid > .row {
+  width: 100%;
+  overflow: hidden;
+}
+/*固定布局*/
+.container > .row > .col-s-1 {
+  width: 8.33333333%;
+  height: 100%;
+  float: left;
+}
+/*流式布局*/
+.container-fluid > .row > .col-s-1 {
+  width: 8.33333333%;
+  height: 100%;
+  float: left;
+}
+/*改变一个位置*/
+.container > .row > .col-s-offsetl-1 {
+  margin-left: -8.33333333%;
+}
+.container > .row > .col-s-offsetr-1 {
+  margin-left: 8.33333333%;
+}
+.container-fluid > .row > .col-s-offsetl-1 {
+  margin-left: -8.33333333%;
+}
+.container-fluid > .row > .col-s-offsetr-1 {
+  margin-left: 8.33333333%;
+}
+/*改变多个位置*/
+.container > .row > .col-s-push-1 {
+  position: relative;
+  left: 8.33333333%;
+}
+.container > .row > .col-s-pull-1 {
+  position: relative;
+  right: 8.33333333%;
+}
+.container-fluid > .row > .col-s-push-1 {
+  position: relative;
+  left: 8.33333333%;
+}
+.container-fluid > .row > .col-s-pull-1 {
+  position: relative;
+  right: 8.33333333%;
+}
+/*固定布局*/
+.container > .row > .col-s-2 {
+  width: 16.66666667%;
+  height: 100%;
+  float: left;
+}
+/*流式布局*/
+.container-fluid > .row > .col-s-2 {
+  width: 16.66666667%;
+  height: 100%;
+  float: left;
+}
+/*改变一个位置*/
+.container > .row > .col-s-offsetl-2 {
+  margin-left: -16.66666667%;
+}
+.container > .row > .col-s-offsetr-2 {
+  margin-left: 16.66666667%;
+}
+.container-fluid > .row > .col-s-offsetl-2 {
+  margin-left: -16.66666667%;
+}
+.container-fluid > .row > .col-s-offsetr-2 {
+  margin-left: 16.66666667%;
+}
+/*改变多个位置*/
+.container > .row > .col-s-push-2 {
+  position: relative;
+  left: 16.66666667%;
+}
+.container > .row > .col-s-pull-2 {
+  position: relative;
+  right: 16.66666667%;
+}
+.container-fluid > .row > .col-s-push-2 {
+  position: relative;
+  left: 16.66666667%;
+}
+.container-fluid > .row > .col-s-pull-2 {
+  position: relative;
+  right: 16.66666667%;
+}
+/*固定布局*/
+.container > .row > .col-s-3 {
+  width: 25%;
+  height: 100%;
+  float: left;
+}
+/*流式布局*/
+.container-fluid > .row > .col-s-3 {
+  width: 25%;
+  height: 100%;
+  float: left;
+}
+/*改变一个位置*/
+.container > .row > .col-s-offsetl-3 {
+  margin-left: -25%;
+}
+.container > .row > .col-s-offsetr-3 {
+  margin-left: 25%;
+}
+.container-fluid > .row > .col-s-offsetl-3 {
+  margin-left: -25%;
+}
+.container-fluid > .row > .col-s-offsetr-3 {
+  margin-left: 25%;
+}
+/*改变多个位置*/
+.container > .row > .col-s-push-3 {
+  position: relative;
+  left: 25%;
+}
+.container > .row > .col-s-pull-3 {
+  position: relative;
+  right: 25%;
+}
+.container-fluid > .row > .col-s-push-3 {
+  position: relative;
+  left: 25%;
+}
+.container-fluid > .row > .col-s-pull-3 {
+  position: relative;
+  right: 25%;
+}
+/*固定布局*/
+.container > .row > .col-s-4 {
+  width: 33.33333333%;
+  height: 100%;
+  float: left;
+}
+/*流式布局*/
+.container-fluid > .row > .col-s-4 {
+  width: 33.33333333%;
+  height: 100%;
+  float: left;
+}
+/*改变一个位置*/
+.container > .row > .col-s-offsetl-4 {
+  margin-left: -33.33333333%;
+}
+.container > .row > .col-s-offsetr-4 {
+  margin-left: 33.33333333%;
+}
+.container-fluid > .row > .col-s-offsetl-4 {
+  margin-left: -33.33333333%;
+}
+.container-fluid > .row > .col-s-offsetr-4 {
+  margin-left: 33.33333333%;
+}
+/*改变多个位置*/
+.container > .row > .col-s-push-4 {
+  position: relative;
+  left: 33.33333333%;
+}
+.container > .row > .col-s-pull-4 {
+  position: relative;
+  right: 33.33333333%;
+}
+.container-fluid > .row > .col-s-push-4 {
+  position: relative;
+  left: 33.33333333%;
+}
+.container-fluid > .row > .col-s-pull-4 {
+  position: relative;
+  right: 33.33333333%;
+}
+/*固定布局*/
+.container > .row > .col-s-5 {
+  width: 41.66666667%;
+  height: 100%;
+  float: left;
+}
+/*流式布局*/
+.container-fluid > .row > .col-s-5 {
+  width: 41.66666667%;
+  height: 100%;
+  float: left;
+}
+/*改变一个位置*/
+.container > .row > .col-s-offsetl-5 {
+  margin-left: -41.66666667%;
+}
+.container > .row > .col-s-offsetr-5 {
+  margin-left: 41.66666667%;
+}
+.container-fluid > .row > .col-s-offsetl-5 {
+  margin-left: -41.66666667%;
+}
+.container-fluid > .row > .col-s-offsetr-5 {
+  margin-left: 41.66666667%;
+}
+/*改变多个位置*/
+.container > .row > .col-s-push-5 {
+  position: relative;
+  left: 41.66666667%;
+}
+.container > .row > .col-s-pull-5 {
+  position: relative;
+  right: 41.66666667%;
+}
+.container-fluid > .row > .col-s-push-5 {
+  position: relative;
+  left: 41.66666667%;
+}
+.container-fluid > .row > .col-s-pull-5 {
+  position: relative;
+  right: 41.66666667%;
+}
+/*固定布局*/
+.container > .row > .col-s-6 {
+  width: 50%;
+  height: 100%;
+  float: left;
+}
+/*流式布局*/
+.container-fluid > .row > .col-s-6 {
+  width: 50%;
+  height: 100%;
+  float: left;
+}
+/*改变一个位置*/
+.container > .row > .col-s-offsetl-6 {
+  margin-left: -50%;
+}
+.container > .row > .col-s-offsetr-6 {
+  margin-left: 50%;
+}
+.container-fluid > .row > .col-s-offsetl-6 {
+  margin-left: -50%;
+}
+.container-fluid > .row > .col-s-offsetr-6 {
+  margin-left: 50%;
+}
+/*改变多个位置*/
+.container > .row > .col-s-push-6 {
+  position: relative;
+  left: 50%;
+}
+.container > .row > .col-s-pull-6 {
+  position: relative;
+  right: 50%;
+}
+.container-fluid > .row > .col-s-push-6 {
+  position: relative;
+  left: 50%;
+}
+.container-fluid > .row > .col-s-pull-6 {
+  position: relative;
+  right: 50%;
+}
+/*固定布局*/
+.container > .row > .col-s-7 {
+  width: 58.33333333%;
+  height: 100%;
+  float: left;
+}
+/*流式布局*/
+.container-fluid > .row > .col-s-7 {
+  width: 58.33333333%;
+  height: 100%;
+  float: left;
+}
+/*改变一个位置*/
+.container > .row > .col-s-offsetl-7 {
+  margin-left: -58.33333333%;
+}
+.container > .row > .col-s-offsetr-7 {
+  margin-left: 58.33333333%;
+}
+.container-fluid > .row > .col-s-offsetl-7 {
+  margin-left: -58.33333333%;
+}
+.container-fluid > .row > .col-s-offsetr-7 {
+  margin-left: 58.33333333%;
+}
+/*改变多个位置*/
+.container > .row > .col-s-push-7 {
+  position: relative;
+  left: 58.33333333%;
+}
+.container > .row > .col-s-pull-7 {
+  position: relative;
+  right: 58.33333333%;
+}
+.container-fluid > .row > .col-s-push-7 {
+  position: relative;
+  left: 58.33333333%;
+}
+.container-fluid > .row > .col-s-pull-7 {
+  position: relative;
+  right: 58.33333333%;
+}
+/*固定布局*/
+.container > .row > .col-s-8 {
+  width: 66.66666667%;
+  height: 100%;
+  float: left;
+}
+/*流式布局*/
+.container-fluid > .row > .col-s-8 {
+  width: 66.66666667%;
+  height: 100%;
+  float: left;
+}
+/*改变一个位置*/
+.container > .row > .col-s-offsetl-8 {
+  margin-left: -66.66666667%;
+}
+.container > .row > .col-s-offsetr-8 {
+  margin-left: 66.66666667%;
+}
+.container-fluid > .row > .col-s-offsetl-8 {
+  margin-left: -66.66666667%;
+}
+.container-fluid > .row > .col-s-offsetr-8 {
+  margin-left: 66.66666667%;
+}
+/*改变多个位置*/
+.container > .row > .col-s-push-8 {
+  position: relative;
+  left: 66.66666667%;
+}
+.container > .row > .col-s-pull-8 {
+  position: relative;
+  right: 66.66666667%;
+}
+.container-fluid > .row > .col-s-push-8 {
+  position: relative;
+  left: 66.66666667%;
+}
+.container-fluid > .row > .col-s-pull-8 {
+  position: relative;
+  right: 66.66666667%;
+}
+/*固定布局*/
+.container > .row > .col-s-9 {
+  width: 75%;
+  height: 100%;
+  float: left;
+}
+/*流式布局*/
+.container-fluid > .row > .col-s-9 {
+  width: 75%;
+  height: 100%;
+  float: left;
+}
+/*改变一个位置*/
+.container > .row > .col-s-offsetl-9 {
+  margin-left: -75%;
+}
+.container > .row > .col-s-offsetr-9 {
+  margin-left: 75%;
+}
+.container-fluid > .row > .col-s-offsetl-9 {
+  margin-left: -75%;
+}
+.container-fluid > .row > .col-s-offsetr-9 {
+  margin-left: 75%;
+}
+/*改变多个位置*/
+.container > .row > .col-s-push-9 {
+  position: relative;
+  left: 75%;
+}
+.container > .row > .col-s-pull-9 {
+  position: relative;
+  right: 75%;
+}
+.container-fluid > .row > .col-s-push-9 {
+  position: relative;
+  left: 75%;
+}
+.container-fluid > .row > .col-s-pull-9 {
+  position: relative;
+  right: 75%;
+}
+/*固定布局*/
+.container > .row > .col-s-10 {
+  width: 83.33333333%;
+  height: 100%;
+  float: left;
+}
+/*流式布局*/
+.container-fluid > .row > .col-s-10 {
+  width: 83.33333333%;
+  height: 100%;
+  float: left;
+}
+/*改变一个位置*/
+.container > .row > .col-s-offsetl-10 {
+  margin-left: -83.33333333%;
+}
+.container > .row > .col-s-offsetr-10 {
+  margin-left: 83.33333333%;
+}
+.container-fluid > .row > .col-s-offsetl-10 {
+  margin-left: -83.33333333%;
+}
+.container-fluid > .row > .col-s-offsetr-10 {
+  margin-left: 83.33333333%;
+}
+/*改变多个位置*/
+.container > .row > .col-s-push-10 {
+  position: relative;
+  left: 83.33333333%;
+}
+.container > .row > .col-s-pull-10 {
+  position: relative;
+  right: 83.33333333%;
+}
+.container-fluid > .row > .col-s-push-10 {
+  position: relative;
+  left: 83.33333333%;
+}
+.container-fluid > .row > .col-s-pull-10 {
+  position: relative;
+  right: 83.33333333%;
+}
+/*固定布局*/
+.container > .row > .col-s-11 {
+  width: 91.66666667%;
+  height: 100%;
+  float: left;
+}
+/*流式布局*/
+.container-fluid > .row > .col-s-11 {
+  width: 91.66666667%;
+  height: 100%;
+  float: left;
+}
+/*改变一个位置*/
+.container > .row > .col-s-offsetl-11 {
+  margin-left: -91.66666667%;
+}
+.container > .row > .col-s-offsetr-11 {
+  margin-left: 91.66666667%;
+}
+.container-fluid > .row > .col-s-offsetl-11 {
+  margin-left: -91.66666667%;
+}
+.container-fluid > .row > .col-s-offsetr-11 {
+  margin-left: 91.66666667%;
+}
+/*改变多个位置*/
+.container > .row > .col-s-push-11 {
+  position: relative;
+  left: 91.66666667%;
+}
+.container > .row > .col-s-pull-11 {
+  position: relative;
+  right: 91.66666667%;
+}
+.container-fluid > .row > .col-s-push-11 {
+  position: relative;
+  left: 91.66666667%;
+}
+.container-fluid > .row > .col-s-pull-11 {
+  position: relative;
+  right: 91.66666667%;
+}
+/*固定布局*/
+.container > .row > .col-s-12 {
+  width: 100%;
+  height: 100%;
+  float: left;
+}
+/*流式布局*/
+.container-fluid > .row > .col-s-12 {
+  width: 100%;
+  height: 100%;
+  float: left;
+}
+/*改变一个位置*/
+.container > .row > .col-s-offsetl-12 {
+  margin-left: -100%;
+}
+.container > .row > .col-s-offsetr-12 {
+  margin-left: 100%;
+}
+.container-fluid > .row > .col-s-offsetl-12 {
+  margin-left: -100%;
+}
+.container-fluid > .row > .col-s-offsetr-12 {
+  margin-left: 100%;
+}
+/*改变多个位置*/
+.container > .row > .col-s-push-12 {
+  position: relative;
+  left: 100%;
+}
+.container > .row > .col-s-pull-12 {
+  position: relative;
+  right: 100%;
+}
+.container-fluid > .row > .col-s-push-12 {
+  position: relative;
+  left: 100%;
+}
+.container-fluid > .row > .col-s-pull-12 {
+  position: relative;
+  right: 100%;
+}
+/*小屏隐藏*/
+.container > .row > .col-s-hid {
+  display: none;
+}
+.container-fluid > .row > .col-s-hid {
+  display: none;
+}
+/*响应式 函数*/
+/*中屏*/
+@media screen and (min-width: 750px) {
+  .container {
+    width: 750px;
+  }
+  /*中屏隐藏*/
+  .container > .row > .col-m-hid {
+    display: none;
+  }
+  .container > .row > .col-s-hid {
+    display: block;
+  }
+  .container-fluid > .row > .col-m-hid {
+    display: none;
+  }
+  .container-fluid > .row > .col-s-hid {
+    display: block;
+  }
+  /*固定布局*/
+  .container > .row > .col-m-1 {
+    width: 8.33333333%;
+    height: 100%;
+    float: left;
+  }
+  /*流式布局*/
+  .container-fluid > .row > .col-m-1 {
+    width: 8.33333333%;
+    height: 100%;
+    float: left;
+  }
+  /*改变一个位置*/
+  .container > .row > .col-m-offsetl-1 {
+    margin-left: -8.33333333%;
+  }
+  .container > .row > .col-m-offsetr-1 {
+    margin-left: 8.33333333%;
+  }
+  .container-fluid > .row > .col-m-offsetl-1 {
+    margin-left: -8.33333333%;
+  }
+  .container-fluid > .row > .col-m-offsetr-1 {
+    margin-left: 8.33333333%;
+  }
+  /*改变多个位置*/
+  .container > .row > .col-m-push-1 {
+    position: relative;
+    left: 8.33333333%;
+  }
+  .container > .row > .col-m-pull-1 {
+    position: relative;
+    right: 8.33333333%;
+  }
+  .container-fluid > .row > .col-m-push-1 {
+    position: relative;
+    left: 8.33333333%;
+  }
+  .container-fluid > .row > .col-m-pull-1 {
+    position: relative;
+    right: 8.33333333%;
+  }
+  /*固定布局*/
+  .container > .row > .col-m-2 {
+    width: 16.66666667%;
+    height: 100%;
+    float: left;
+  }
+  /*流式布局*/
+  .container-fluid > .row > .col-m-2 {
+    width: 16.66666667%;
+    height: 100%;
+    float: left;
+  }
+  /*改变一个位置*/
+  .container > .row > .col-m-offsetl-2 {
+    margin-left: -16.66666667%;
+  }
+  .container > .row > .col-m-offsetr-2 {
+    margin-left: 16.66666667%;
+  }
+  .container-fluid > .row > .col-m-offsetl-2 {
+    margin-left: -16.66666667%;
+  }
+  .container-fluid > .row > .col-m-offsetr-2 {
+    margin-left: 16.66666667%;
+  }
+  /*改变多个位置*/
+  .container > .row > .col-m-push-2 {
+    position: relative;
+    left: 16.66666667%;
+  }
+  .container > .row > .col-m-pull-2 {
+    position: relative;
+    right: 16.66666667%;
+  }
+  .container-fluid > .row > .col-m-push-2 {
+    position: relative;
+    left: 16.66666667%;
+  }
+  .container-fluid > .row > .col-m-pull-2 {
+    position: relative;
+    right: 16.66666667%;
+  }
+  /*固定布局*/
+  .container > .row > .col-m-3 {
+    width: 25%;
+    height: 100%;
+    float: left;
+  }
+  /*流式布局*/
+  .container-fluid > .row > .col-m-3 {
+    width: 25%;
+    height: 100%;
+    float: left;
+  }
+  /*改变一个位置*/
+  .container > .row > .col-m-offsetl-3 {
+    margin-left: -25%;
+  }
+  .container > .row > .col-m-offsetr-3 {
+    margin-left: 25%;
+  }
+  .container-fluid > .row > .col-m-offsetl-3 {
+    margin-left: -25%;
+  }
+  .container-fluid > .row > .col-m-offsetr-3 {
+    margin-left: 25%;
+  }
+  /*改变多个位置*/
+  .container > .row > .col-m-push-3 {
+    position: relative;
+    left: 25%;
+  }
+  .container > .row > .col-m-pull-3 {
+    position: relative;
+    right: 25%;
+  }
+  .container-fluid > .row > .col-m-push-3 {
+    position: relative;
+    left: 25%;
+  }
+  .container-fluid > .row > .col-m-pull-3 {
+    position: relative;
+    right: 25%;
+  }
+  /*固定布局*/
+  .container > .row > .col-m-4 {
+    width: 33.33333333%;
+    height: 100%;
+    float: left;
+  }
+  /*流式布局*/
+  .container-fluid > .row > .col-m-4 {
+    width: 33.33333333%;
+    height: 100%;
+    float: left;
+  }
+  /*改变一个位置*/
+  .container > .row > .col-m-offsetl-4 {
+    margin-left: -33.33333333%;
+  }
+  .container > .row > .col-m-offsetr-4 {
+    margin-left: 33.33333333%;
+  }
+  .container-fluid > .row > .col-m-offsetl-4 {
+    margin-left: -33.33333333%;
+  }
+  .container-fluid > .row > .col-m-offsetr-4 {
+    margin-left: 33.33333333%;
+  }
+  /*改变多个位置*/
+  .container > .row > .col-m-push-4 {
+    position: relative;
+    left: 33.33333333%;
+  }
+  .container > .row > .col-m-pull-4 {
+    position: relative;
+    right: 33.33333333%;
+  }
+  .container-fluid > .row > .col-m-push-4 {
+    position: relative;
+    left: 33.33333333%;
+  }
+  .container-fluid > .row > .col-m-pull-4 {
+    position: relative;
+    right: 33.33333333%;
+  }
+  /*固定布局*/
+  .container > .row > .col-m-5 {
+    width: 41.66666667%;
+    height: 100%;
+    float: left;
+  }
+  /*流式布局*/
+  .container-fluid > .row > .col-m-5 {
+    width: 41.66666667%;
+    height: 100%;
+    float: left;
+  }
+  /*改变一个位置*/
+  .container > .row > .col-m-offsetl-5 {
+    margin-left: -41.66666667%;
+  }
+  .container > .row > .col-m-offsetr-5 {
+    margin-left: 41.66666667%;
+  }
+  .container-fluid > .row > .col-m-offsetl-5 {
+    margin-left: -41.66666667%;
+  }
+  .container-fluid > .row > .col-m-offsetr-5 {
+    margin-left: 41.66666667%;
+  }
+  /*改变多个位置*/
+  .container > .row > .col-m-push-5 {
+    position: relative;
+    left: 41.66666667%;
+  }
+  .container > .row > .col-m-pull-5 {
+    position: relative;
+    right: 41.66666667%;
+  }
+  .container-fluid > .row > .col-m-push-5 {
+    position: relative;
+    left: 41.66666667%;
+  }
+  .container-fluid > .row > .col-m-pull-5 {
+    position: relative;
+    right: 41.66666667%;
+  }
+  /*固定布局*/
+  .container > .row > .col-m-6 {
+    width: 50%;
+    height: 100%;
+    float: left;
+  }
+  /*流式布局*/
+  .container-fluid > .row > .col-m-6 {
+    width: 50%;
+    height: 100%;
+    float: left;
+  }
+  /*改变一个位置*/
+  .container > .row > .col-m-offsetl-6 {
+    margin-left: -50%;
+  }
+  .container > .row > .col-m-offsetr-6 {
+    margin-left: 50%;
+  }
+  .container-fluid > .row > .col-m-offsetl-6 {
+    margin-left: -50%;
+  }
+  .container-fluid > .row > .col-m-offsetr-6 {
+    margin-left: 50%;
+  }
+  /*改变多个位置*/
+  .container > .row > .col-m-push-6 {
+    position: relative;
+    left: 50%;
+  }
+  .container > .row > .col-m-pull-6 {
+    position: relative;
+    right: 50%;
+  }
+  .container-fluid > .row > .col-m-push-6 {
+    position: relative;
+    left: 50%;
+  }
+  .container-fluid > .row > .col-m-pull-6 {
+    position: relative;
+    right: 50%;
+  }
+  /*固定布局*/
+  .container > .row > .col-m-7 {
+    width: 58.33333333%;
+    height: 100%;
+    float: left;
+  }
+  /*流式布局*/
+  .container-fluid > .row > .col-m-7 {
+    width: 58.33333333%;
+    height: 100%;
+    float: left;
+  }
+  /*改变一个位置*/
+  .container > .row > .col-m-offsetl-7 {
+    margin-left: -58.33333333%;
+  }
+  .container > .row > .col-m-offsetr-7 {
+    margin-left: 58.33333333%;
+  }
+  .container-fluid > .row > .col-m-offsetl-7 {
+    margin-left: -58.33333333%;
+  }
+  .container-fluid > .row > .col-m-offsetr-7 {
+    margin-left: 58.33333333%;
+  }
+  /*改变多个位置*/
+  .container > .row > .col-m-push-7 {
+    position: relative;
+    left: 58.33333333%;
+  }
+  .container > .row > .col-m-pull-7 {
+    position: relative;
+    right: 58.33333333%;
+  }
+  .container-fluid > .row > .col-m-push-7 {
+    position: relative;
+    left: 58.33333333%;
+  }
+  .container-fluid > .row > .col-m-pull-7 {
+    position: relative;
+    right: 58.33333333%;
+  }
+  /*固定布局*/
+  .container > .row > .col-m-8 {
+    width: 66.66666667%;
+    height: 100%;
+    float: left;
+  }
+  /*流式布局*/
+  .container-fluid > .row > .col-m-8 {
+    width: 66.66666667%;
+    height: 100%;
+    float: left;
+  }
+  /*改变一个位置*/
+  .container > .row > .col-m-offsetl-8 {
+    margin-left: -66.66666667%;
+  }
+  .container > .row > .col-m-offsetr-8 {
+    margin-left: 66.66666667%;
+  }
+  .container-fluid > .row > .col-m-offsetl-8 {
+    margin-left: -66.66666667%;
+  }
+  .container-fluid > .row > .col-m-offsetr-8 {
+    margin-left: 66.66666667%;
+  }
+  /*改变多个位置*/
+  .container > .row > .col-m-push-8 {
+    position: relative;
+    left: 66.66666667%;
+  }
+  .container > .row > .col-m-pull-8 {
+    position: relative;
+    right: 66.66666667%;
+  }
+  .container-fluid > .row > .col-m-push-8 {
+    position: relative;
+    left: 66.66666667%;
+  }
+  .container-fluid > .row > .col-m-pull-8 {
+    position: relative;
+    right: 66.66666667%;
+  }
+  /*固定布局*/
+  .container > .row > .col-m-9 {
+    width: 75%;
+    height: 100%;
+    float: left;
+  }
+  /*流式布局*/
+  .container-fluid > .row > .col-m-9 {
+    width: 75%;
+    height: 100%;
+    float: left;
+  }
+  /*改变一个位置*/
+  .container > .row > .col-m-offsetl-9 {
+    margin-left: -75%;
+  }
+  .container > .row > .col-m-offsetr-9 {
+    margin-left: 75%;
+  }
+  .container-fluid > .row > .col-m-offsetl-9 {
+    margin-left: -75%;
+  }
+  .container-fluid > .row > .col-m-offsetr-9 {
+    margin-left: 75%;
+  }
+  /*改变多个位置*/
+  .container > .row > .col-m-push-9 {
+    position: relative;
+    left: 75%;
+  }
+  .container > .row > .col-m-pull-9 {
+    position: relative;
+    right: 75%;
+  }
+  .container-fluid > .row > .col-m-push-9 {
+    position: relative;
+    left: 75%;
+  }
+  .container-fluid > .row > .col-m-pull-9 {
+    position: relative;
+    right: 75%;
+  }
+  /*固定布局*/
+  .container > .row > .col-m-10 {
+    width: 83.33333333%;
+    height: 100%;
+    float: left;
+  }
+  /*流式布局*/
+  .container-fluid > .row > .col-m-10 {
+    width: 83.33333333%;
+    height: 100%;
+    float: left;
+  }
+  /*改变一个位置*/
+  .container > .row > .col-m-offsetl-10 {
+    margin-left: -83.33333333%;
+  }
+  .container > .row > .col-m-offsetr-10 {
+    margin-left: 83.33333333%;
+  }
+  .container-fluid > .row > .col-m-offsetl-10 {
+    margin-left: -83.33333333%;
+  }
+  .container-fluid > .row > .col-m-offsetr-10 {
+    margin-left: 83.33333333%;
+  }
+  /*改变多个位置*/
+  .container > .row > .col-m-push-10 {
+    position: relative;
+    left: 83.33333333%;
+  }
+  .container > .row > .col-m-pull-10 {
+    position: relative;
+    right: 83.33333333%;
+  }
+  .container-fluid > .row > .col-m-push-10 {
+    position: relative;
+    left: 83.33333333%;
+  }
+  .container-fluid > .row > .col-m-pull-10 {
+    position: relative;
+    right: 83.33333333%;
+  }
+  /*固定布局*/
+  .container > .row > .col-m-11 {
+    width: 91.66666667%;
+    height: 100%;
+    float: left;
+  }
+  /*流式布局*/
+  .container-fluid > .row > .col-m-11 {
+    width: 91.66666667%;
+    height: 100%;
+    float: left;
+  }
+  /*改变一个位置*/
+  .container > .row > .col-m-offsetl-11 {
+    margin-left: -91.66666667%;
+  }
+  .container > .row > .col-m-offsetr-11 {
+    margin-left: 91.66666667%;
+  }
+  .container-fluid > .row > .col-m-offsetl-11 {
+    margin-left: -91.66666667%;
+  }
+  .container-fluid > .row > .col-m-offsetr-11 {
+    margin-left: 91.66666667%;
+  }
+  /*改变多个位置*/
+  .container > .row > .col-m-push-11 {
+    position: relative;
+    left: 91.66666667%;
+  }
+  .container > .row > .col-m-pull-11 {
+    position: relative;
+    right: 91.66666667%;
+  }
+  .container-fluid > .row > .col-m-push-11 {
+    position: relative;
+    left: 91.66666667%;
+  }
+  .container-fluid > .row > .col-m-pull-11 {
+    position: relative;
+    right: 91.66666667%;
+  }
+  /*固定布局*/
+  .container > .row > .col-m-12 {
+    width: 100%;
+    height: 100%;
+    float: left;
+  }
+  /*流式布局*/
+  .container-fluid > .row > .col-m-12 {
+    width: 100%;
+    height: 100%;
+    float: left;
+  }
+  /*改变一个位置*/
+  .container > .row > .col-m-offsetl-12 {
+    margin-left: -100%;
+  }
+  .container > .row > .col-m-offsetr-12 {
+    margin-left: 100%;
+  }
+  .container-fluid > .row > .col-m-offsetl-12 {
+    margin-left: -100%;
+  }
+  .container-fluid > .row > .col-m-offsetr-12 {
+    margin-left: 100%;
+  }
+  /*改变多个位置*/
+  .container > .row > .col-m-push-12 {
+    position: relative;
+    left: 100%;
+  }
+  .container > .row > .col-m-pull-12 {
+    position: relative;
+    right: 100%;
+  }
+  .container-fluid > .row > .col-m-push-12 {
+    position: relative;
+    left: 100%;
+  }
+  .container-fluid > .row > .col-m-pull-12 {
+    position: relative;
+    right: 100%;
+  }
+}
+/*大屏*/
+@media screen and (min-width: 1170px) {
+  .container {
+    width: 100%; /*1170px;*/
+  }
+  /*大屏隐藏*/
+  .container > .row > .col-l-hid {
+    display: none;
+  }
+  .container > .row > .col-s-hid {
+    display: block;
+  }
+  .container > .row > .col-m-hid {
+    display: block;
+  }
+  .container-fluid > .row > .col-l-hid {
+    display: none;
+  }
+  .container-fluid > .row > .col-s-hid {
+    display: block;
+  }
+  .container-fluid > .row > .col-m-hid {
+    display: block;
+  }
+  /*固定布局*/
+  .container > .row > .col-l-1 {
+    width: 8.33333333%;
+    height: 100%;
+    float: left;
+  }
+  /*流式布局*/
+  .container-fluid > .row > .col-l-1 {
+    width: 8.33333333%;
+    height: 100%;
+    float: left;
+  }
+  /*改变一个位置*/
+  .container > .row > .col-l-offsetl-1 {
+    margin-left: -8.33333333%;
+  }
+  .container > .row > .col-l-offsetr-1 {
+    margin-left: 8.33333333%;
+  }
+  .container-fluid > .row > .col-l-offsetl-1 {
+    margin-left: -8.33333333%;
+  }
+  .container-fluid > .row > .col-l-offsetr-1 {
+    margin-left: 8.33333333%;
+  }
+  /*改变多个位置*/
+  .container > .row > .col-l-push-1 {
+    position: relative;
+    left: 8.33333333%;
+  }
+  .container > .row > .col-l-pull-1 {
+    position: relative;
+    right: 8.33333333%;
+  }
+  .container-fluid > .row > .col-l-push-1 {
+    position: relative;
+    left: 8.33333333%;
+  }
+  .container-fluid > .row > .col-l-pull-1 {
+    position: relative;
+    right: 8.33333333%;
+  }
+  /*固定布局*/
+  .container > .row > .col-l-2 {
+    width: 16.66666667%;
+    height: 100%;
+    float: left;
+  }
+  /*流式布局*/
+  .container-fluid > .row > .col-l-2 {
+    width: 16.66666667%;
+    height: 100%;
+    float: left;
+  }
+  /*改变一个位置*/
+  .container > .row > .col-l-offsetl-2 {
+    margin-left: -16.66666667%;
+  }
+  .container > .row > .col-l-offsetr-2 {
+    margin-left: 16.66666667%;
+  }
+  .container-fluid > .row > .col-l-offsetl-2 {
+    margin-left: -16.66666667%;
+  }
+  .container-fluid > .row > .col-l-offsetr-2 {
+    margin-left: 16.66666667%;
+  }
+  /*改变多个位置*/
+  .container > .row > .col-l-push-2 {
+    position: relative;
+    left: 16.66666667%;
+  }
+  .container > .row > .col-l-pull-2 {
+    position: relative;
+    right: 16.66666667%;
+  }
+  .container-fluid > .row > .col-l-push-2 {
+    position: relative;
+    left: 16.66666667%;
+  }
+  .container-fluid > .row > .col-l-pull-2 {
+    position: relative;
+    right: 16.66666667%;
+  }
+  /*固定布局*/
+  .container > .row > .col-l-3 {
+    width: 25%;
+    height: 100%;
+    float: left;
+  }
+  /*流式布局*/
+  .container-fluid > .row > .col-l-3 {
+    width: 25%;
+    height: 100%;
+    float: left;
+  }
+  /*改变一个位置*/
+  .container > .row > .col-l-offsetl-3 {
+    margin-left: -25%;
+  }
+  .container > .row > .col-l-offsetr-3 {
+    margin-left: 25%;
+  }
+  .container-fluid > .row > .col-l-offsetl-3 {
+    margin-left: -25%;
+  }
+  .container-fluid > .row > .col-l-offsetr-3 {
+    margin-left: 25%;
+  }
+  /*改变多个位置*/
+  .container > .row > .col-l-push-3 {
+    position: relative;
+    left: 25%;
+  }
+  .container > .row > .col-l-pull-3 {
+    position: relative;
+    right: 25%;
+  }
+  .container-fluid > .row > .col-l-push-3 {
+    position: relative;
+    left: 25%;
+  }
+  .container-fluid > .row > .col-l-pull-3 {
+    position: relative;
+    right: 25%;
+  }
+  /*固定布局*/
+  .container > .row > .col-l-4 {
+    width: 33.33333333%;
+    height: 100%;
+    float: left;
+  }
+  /*流式布局*/
+  .container-fluid > .row > .col-l-4 {
+    width: 33.33333333%;
+    height: 100%;
+    float: left;
+  }
+  /*改变一个位置*/
+  .container > .row > .col-l-offsetl-4 {
+    margin-left: -33.33333333%;
+  }
+  .container > .row > .col-l-offsetr-4 {
+    margin-left: 33.33333333%;
+  }
+  .container-fluid > .row > .col-l-offsetl-4 {
+    margin-left: -33.33333333%;
+  }
+  .container-fluid > .row > .col-l-offsetr-4 {
+    margin-left: 33.33333333%;
+  }
+  /*改变多个位置*/
+  .container > .row > .col-l-push-4 {
+    position: relative;
+    left: 33.33333333%;
+  }
+  .container > .row > .col-l-pull-4 {
+    position: relative;
+    right: 33.33333333%;
+  }
+  .container-fluid > .row > .col-l-push-4 {
+    position: relative;
+    left: 33.33333333%;
+  }
+  .container-fluid > .row > .col-l-pull-4 {
+    position: relative;
+    right: 33.33333333%;
+  }
+  /*固定布局*/
+  .container > .row > .col-l-5 {
+    width: 41.66666667%;
+    height: 100%;
+    float: left;
+  }
+  /*流式布局*/
+  .container-fluid > .row > .col-l-5 {
+    width: 41.66666667%;
+    height: 100%;
+    float: left;
+  }
+  /*改变一个位置*/
+  .container > .row > .col-l-offsetl-5 {
+    margin-left: -41.66666667%;
+  }
+  .container > .row > .col-l-offsetr-5 {
+    margin-left: 41.66666667%;
+  }
+  .container-fluid > .row > .col-l-offsetl-5 {
+    margin-left: -41.66666667%;
+  }
+  .container-fluid > .row > .col-l-offsetr-5 {
+    margin-left: 41.66666667%;
+  }
+  /*改变多个位置*/
+  .container > .row > .col-l-push-5 {
+    position: relative;
+    left: 41.66666667%;
+  }
+  .container > .row > .col-l-pull-5 {
+    position: relative;
+    right: 41.66666667%;
+  }
+  .container-fluid > .row > .col-l-push-5 {
+    position: relative;
+    left: 41.66666667%;
+  }
+  .container-fluid > .row > .col-l-pull-5 {
+    position: relative;
+    right: 41.66666667%;
+  }
+  /*固定布局*/
+  .container > .row > .col-l-6 {
+    width: 50%;
+    height: 100%;
+    float: left;
+  }
+  /*流式布局*/
+  .container-fluid > .row > .col-l-6 {
+    width: 50%;
+    height: 100%;
+    float: left;
+  }
+  /*改变一个位置*/
+  .container > .row > .col-l-offsetl-6 {
+    margin-left: -50%;
+  }
+  .container > .row > .col-l-offsetr-6 {
+    margin-left: 50%;
+  }
+  .container-fluid > .row > .col-l-offsetl-6 {
+    margin-left: -50%;
+  }
+  .container-fluid > .row > .col-l-offsetr-6 {
+    margin-left: 50%;
+  }
+  /*改变多个位置*/
+  .container > .row > .col-l-push-6 {
+    position: relative;
+    left: 50%;
+  }
+  .container > .row > .col-l-pull-6 {
+    position: relative;
+    right: 50%;
+  }
+  .container-fluid > .row > .col-l-push-6 {
+    position: relative;
+    left: 50%;
+  }
+  .container-fluid > .row > .col-l-pull-6 {
+    position: relative;
+    right: 50%;
+  }
+  /*固定布局*/
+  .container > .row > .col-l-7 {
+    width: 58.33333333%;
+    height: 100%;
+    float: left;
+  }
+  /*流式布局*/
+  .container-fluid > .row > .col-l-7 {
+    width: 58.33333333%;
+    height: 100%;
+    float: left;
+  }
+  /*改变一个位置*/
+  .container > .row > .col-l-offsetl-7 {
+    margin-left: -58.33333333%;
+  }
+  .container > .row > .col-l-offsetr-7 {
+    margin-left: 58.33333333%;
+  }
+  .container-fluid > .row > .col-l-offsetl-7 {
+    margin-left: -58.33333333%;
+  }
+  .container-fluid > .row > .col-l-offsetr-7 {
+    margin-left: 58.33333333%;
+  }
+  /*改变多个位置*/
+  .container > .row > .col-l-push-7 {
+    position: relative;
+    left: 58.33333333%;
+  }
+  .container > .row > .col-l-pull-7 {
+    position: relative;
+    right: 58.33333333%;
+  }
+  .container-fluid > .row > .col-l-push-7 {
+    position: relative;
+    left: 58.33333333%;
+  }
+  .container-fluid > .row > .col-l-pull-7 {
+    position: relative;
+    right: 58.33333333%;
+  }
+  /*固定布局*/
+  .container > .row > .col-l-8 {
+    width: 66.66666667%;
+    height: 100%;
+    float: left;
+  }
+  /*流式布局*/
+  .container-fluid > .row > .col-l-8 {
+    width: 66.66666667%;
+    height: 100%;
+    float: left;
+  }
+  /*改变一个位置*/
+  .container > .row > .col-l-offsetl-8 {
+    margin-left: -66.66666667%;
+  }
+  .container > .row > .col-l-offsetr-8 {
+    margin-left: 66.66666667%;
+  }
+  .container-fluid > .row > .col-l-offsetl-8 {
+    margin-left: -66.66666667%;
+  }
+  .container-fluid > .row > .col-l-offsetr-8 {
+    margin-left: 66.66666667%;
+  }
+  /*改变多个位置*/
+  .container > .row > .col-l-push-8 {
+    position: relative;
+    left: 66.66666667%;
+  }
+  .container > .row > .col-l-pull-8 {
+    position: relative;
+    right: 66.66666667%;
+  }
+  .container-fluid > .row > .col-l-push-8 {
+    position: relative;
+    left: 66.66666667%;
+  }
+  .container-fluid > .row > .col-l-pull-8 {
+    position: relative;
+    right: 66.66666667%;
+  }
+  /*固定布局*/
+  .container > .row > .col-l-9 {
+    width: 75%;
+    height: 100%;
+    float: left;
+  }
+  /*流式布局*/
+  .container-fluid > .row > .col-l-9 {
+    width: 75%;
+    height: 100%;
+    float: left;
+  }
+  /*改变一个位置*/
+  .container > .row > .col-l-offsetl-9 {
+    margin-left: -75%;
+  }
+  .container > .row > .col-l-offsetr-9 {
+    margin-left: 75%;
+  }
+  .container-fluid > .row > .col-l-offsetl-9 {
+    margin-left: -75%;
+  }
+  .container-fluid > .row > .col-l-offsetr-9 {
+    margin-left: 75%;
+  }
+  /*改变多个位置*/
+  .container > .row > .col-l-push-9 {
+    position: relative;
+    left: 75%;
+  }
+  .container > .row > .col-l-pull-9 {
+    position: relative;
+    right: 75%;
+  }
+  .container-fluid > .row > .col-l-push-9 {
+    position: relative;
+    left: 75%;
+  }
+  .container-fluid > .row > .col-l-pull-9 {
+    position: relative;
+    right: 75%;
+  }
+  /*固定布局*/
+  .container > .row > .col-l-10 {
+    width: 83.33333333%;
+    height: 100%;
+    float: left;
+  }
+  /*流式布局*/
+  .container-fluid > .row > .col-l-10 {
+    width: 83.33333333%;
+    height: 100%;
+    float: left;
+  }
+  /*改变一个位置*/
+  .container > .row > .col-l-offsetl-10 {
+    margin-left: -83.33333333%;
+  }
+  .container > .row > .col-l-offsetr-10 {
+    margin-left: 83.33333333%;
+  }
+  .container-fluid > .row > .col-l-offsetl-10 {
+    margin-left: -83.33333333%;
+  }
+  .container-fluid > .row > .col-l-offsetr-10 {
+    margin-left: 83.33333333%;
+  }
+  /*改变多个位置*/
+  .container > .row > .col-l-push-10 {
+    position: relative;
+    left: 83.33333333%;
+  }
+  .container > .row > .col-l-pull-10 {
+    position: relative;
+    right: 83.33333333%;
+  }
+  .container-fluid > .row > .col-l-push-10 {
+    position: relative;
+    left: 83.33333333%;
+  }
+  .container-fluid > .row > .col-l-pull-10 {
+    position: relative;
+    right: 83.33333333%;
+  }
+  /*固定布局*/
+  .container > .row > .col-l-11 {
+    width: 91.66666667%;
+    height: 100%;
+    float: left;
+  }
+  /*流式布局*/
+  .container-fluid > .row > .col-l-11 {
+    width: 91.66666667%;
+    height: 100%;
+    float: left;
+  }
+  /*改变一个位置*/
+  .container > .row > .col-l-offsetl-11 {
+    margin-left: -91.66666667%;
+  }
+  .container > .row > .col-l-offsetr-11 {
+    margin-left: 91.66666667%;
+  }
+  .container-fluid > .row > .col-l-offsetl-11 {
+    margin-left: -91.66666667%;
+  }
+  .container-fluid > .row > .col-l-offsetr-11 {
+    margin-left: 91.66666667%;
+  }
+  /*改变多个位置*/
+  .container > .row > .col-l-push-11 {
+    position: relative;
+    left: 91.66666667%;
+  }
+  .container > .row > .col-l-pull-11 {
+    position: relative;
+    right: 91.66666667%;
+  }
+  .container-fluid > .row > .col-l-push-11 {
+    position: relative;
+    left: 91.66666667%;
+  }
+  .container-fluid > .row > .col-l-pull-11 {
+    position: relative;
+    right: 91.66666667%;
+  }
+  /*固定布局*/
+  .container > .row > .col-l-12 {
+    width: 100%;
+    height: 100%;
+    float: left;
+  }
+  /*流式布局*/
+  .container-fluid > .row > .col-l-12 {
+    width: 100%;
+    height: 100%;
+    float: left;
+  }
+  /*改变一个位置*/
+  .container > .row > .col-l-offsetl-12 {
+    margin-left: -100%;
+  }
+  .container > .row > .col-l-offsetr-12 {
+    margin-left: 100%;
+  }
+  .container-fluid > .row > .col-l-offsetl-12 {
+    margin-left: -100%;
+  }
+  .container-fluid > .row > .col-l-offsetr-12 {
+    margin-left: 100%;
+  }
+  /*改变多个位置*/
+  .container > .row > .col-l-push-12 {
+    position: relative;
+    left: 100%;
+  }
+  .container > .row > .col-l-pull-12 {
+    position: relative;
+    right: 100%;
+  }
+  .container-fluid > .row > .col-l-push-12 {
+    position: relative;
+    left: 100%;
+  }
+  .container-fluid > .row > .col-l-pull-12 {
+    position: relative;
+    right: 100%;
+  }
+}
+/*清楚浮动影响 函数*/

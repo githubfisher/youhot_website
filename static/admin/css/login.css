@@ -1,0 +1,36 @@
+body,p,input,textarea,ul,li,ol,dl,dt,form{margin:0;padding:0;}
+em,b,strong,i{font-weight:normal;font-style:normal}
+img{border:0;}
+.bigbox{
+    width:100%;height:auto;margin:0 auto;}
+/*logo开始*/
+.top-logo{
+    width:100%!important;height:5px;background:#EC0F77;margin:0 auto;}
+.logo{
+    width:100%!important;height:63px;margin:0 auto;}
+.logoleft{width:150px!important;height:36px!important;float:left;margin-left:135px!important;margin-top:23px!important;}
+.logoright{width:150px!important;height:36px!important;
+          float:right!important;margin-top:23px!important;
+          margin-right:100px!important}
+.logoright a{font-size: 19px;color:#6C6C6C}
+/*logo结束*/
+/*banner开始*/
+.banner{
+    position:relative;
+    overflow: hidden;
+    width:100%!important;height:744px;
+   /* background-image: url(/static/admin/images/login_banner.png);*/
+    background-repeat: no-repeat ;
+    background-position:center;
+    margin:0 auto;
+}
+.banner >.row>img{width:100%!important;height:744px;}
+.yonghuming{width:246px;height:36px;margin-top:20px;margin-left:10px;}
+.bannerright{width:355px;height:351px;float:left; position: absolute;right: 150px;top:169px}
+.form{
+    width:355px;height:292px;background:#fff;color:#616161;font-size:14px;}
+.form input{width:246px;height:36px; margin:20px 27px 5px 20px ;border:1px solid #D3D3D3;color:#B8B8B8 }
+.bottom{width:100%!important;height:80px;background:#fff;position:relative}
+.bottom p{font-size: 14px;text-align:center;color:#B8B8B8;font-family: "微软雅黑";display:block;position: absolute;right: 40%;top:40px;}
+.denglu{width:306px;height:42px;background:#000!important;margin-top:20px;}
+.denglu:hover{background:#353535!important;}

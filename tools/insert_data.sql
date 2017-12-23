@@ -1,0 +1,4 @@
+INSERT INTO `teacher` (`username`, `isok`, `familyname`, `school`, `grade`, `pay`, `realname`, `realname_isok`, `familyname_isok`, `telephone`, `telephone_isok`, `email`, `email_isok`, `gender`, `gender_isok`, `birthday`, `birthday_isok`, `major`, `school_isok`, `major_isok`, `grade_isok`, `skilled_subject`, `skilledsub_isok`, `award`, `award_isok`, `exp_year`, `expyear_isok`, `teach_exp`, `teachexp_isok`, `intro`, `intro_isok`, `rank`) VALUES
+('liubiao2', 0, '刘', '北京大学2', 2, 80, '刘标2', 1, NULL, '134342342343', NULL, 'liubiao@aifudao.com', NULL, 0, NULL, '9-9', NULL, '??', NULL, NULL, NULL, 3, NULL, '理科状元，单杠金牌', NULL, 3, NULL, 0, NULL, '理科状元，单杠金牌', NULL, '中级教师'),
+('liubiao3', 0, '刘', '北京大学2', 2, 80, '刘标3', 1, NULL, '134342342343', NULL, 'liubiao@aifudao.com', NULL, 0, NULL, '9-9', NULL, '??', NULL, NULL, NULL, 3, NULL, '理科状元，单杠金牌', NULL, 3, NULL, 0, NULL, '理科状元，单杠金牌', NULL, '中级教师');
+

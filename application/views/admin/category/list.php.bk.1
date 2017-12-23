@@ -1,0 +1,114 @@
+<?php
+$this->layout->load_css("/admin/modules/datatables/datatables.min.css");
+$this->layout->load_js('admin/modules/datatables/datatables.js');
+$this->layout->load_js('admin/plugins/bootstrap/js/bootstrap-confirmation.js');
+$this->layout->placeholder('title', '分类管理');
+?>
+<style>
+    .container .row{
+        width:84%;
+    }
+    .col-md-offset-01{
+        margin-left: 2%;
+    }
+    .edit2{
+        display: none;
+    }
+</style>
+<div class="m-center-right" style="height:auto">
+    <div class="m-center-top">
+        <div class="col-sm-4"><h3>分类管理</h3></div>
+        <div class="col-sm-8"><h3 class="text-right"><a href="/admin/category/brand_category_list" class="product-add btn btn-purple pull-right">品牌税重管理</a></h3></div>
+    </div>
+    <div class="m-content">
+        <table id="list-table" class="table table-striped table-bordered" cellspacing="0" width="100%">
+        </table>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 col-md-offset-01">
+            <table class="table text-center">
+                <thead>
+                    <tr style="font-weight:bold;">
+                        <td>ID</td>
+                        <td>分类名称</td>
+                        <td>中文翻译</td>
+                        <td>重量（Kg）</td>
+                        <td>关税税率</td>
+                        <td>是否显示</td>
+                        <td>操作</td>
+                    </tr>
+                </thead>
+                <tbody class=".table-striped">
+                <?php
+                    $count = 0;
+                    foreach($arr as $item){
+                    $count++;
+                ?>
+                    <tr id="<?php echo $item['id']; ?>a">
+                        <td><?php echo $item["id"];?></td>
+                        <td><?php echo $item["name"];?></td>
+                        <td><?php echo $item["chinese_name"];?></td>
+                        <td><?php echo $item["weight"];?></td>
+                        <td><?php echo $item["tax_rate"];?></td>
+                        <?php if ($item["is_show"] == 1) { ?>
+			    <td>是</td>
+			<?php } else { ?>
+			    <td>否</td>
+			<?php } ?>
+                        <td>
+                            <a href="javascript:void(0);" onclick="edit('<?php echo $item['id']; ?>', '<?php echo $item['is_show']; ?>');">编辑</a>
+                        </td>
+                    </tr>
+		    <tr id="<?php echo $item['id']; ?>b" class="edit2">
+                        <td><?php echo $item["id"];?></td>
+                        <td><?php echo $item["name"];?></td>
+                        <td><input type="text" id ="<?php echo $item['id'] ?>chname" value="<?php echo $item['chinese_name'] ?>"></td>
+                        <td><input type="text" id ="<?php echo $item['id'] ?>wgt" value="<?php echo $item['weight'] ?>"></td>
+                        <td><input type="text" id ="<?php echo $item['id'] ?>trate" value="<?php echo $item['tax_rate'] ?>"></td>
+                        <td>
+			    <select id="<?php echo $item['id'] ?>show" class="form-control" data-pid="" aria-invalid="false">
+                                <option value="1">是</option>
+                                <option value="0">否</option>
+                            </select>
+			</td>
+                        <td>
+                            <a href="javascript:void(0);" onclick="sub('<?php echo $item['id']; ?>');">提交</a>
+                            <a href="javascript:void(0);" onclick="cancel('<?php echo $item['id']; ?>');">取消</a>
+                        </td>
+                    </tr>
+                <?php }?>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<script>
+function edit(id, show)
+    {
+        $("#"+id+"show").val(show);
+        $("#"+id+"a").hide();
+        $("#"+id+"b").show();
+    }
+function cancel(id)
+    {
+        $("#"+id+"b").hide();
+        $("#"+id+"a").show();
+    }
+function sub(id)
+    {
+        var chinese_name = $("#"+id+"chname").val();
+        var tax_rate = $("#"+id+"trate").val();
+        var weight = $("#"+id+"wgt").val();
+        var update_url = '/admin/category/update_info';
+        $.post(update_url,{id, chinese_name, weight, tax_rate},function (data) {
+            if (data.res == 0) {
+                showSuccess();
+                window.location.reload();
+            } else {
+                showErrorMessage(data.hint);
+            }
+        }, 'json');
+    }
+</script>

@@ -1,0 +1,49 @@
+<RestClientRequest>
+  <option name="biscuits">
+    <list>
+      <Biscuit>
+        <option name="date" value="1448901120000" />
+        <option name="domain" value="123.56.246.81" />
+        <option name="name" value="ci_csrf_token" />
+        <option name="path" value="/" />
+        <option name="value" value="f477c91b1607bce800b849bac841c87e" />
+      </Biscuit>
+      <Biscuit>
+        <option name="date" value="1480429899000" />
+        <option name="domain" value="123.56.246.81" />
+        <option name="name" value="sid" />
+        <option name="path" value="/" />
+        <option name="value" value="a9357861b5588a52157d27c2a9b16a76" />
+      </Biscuit>
+    </list>
+  </option>
+  <option name="httpMethod" value="POST" />
+  <option name="urlBase" value="http://123.56.246.81" />
+  <option name="urlPath" value="/user/get_verify_code" />
+  <option name="headers">
+    <list>
+      <KeyValuePair>
+        <option name="key" value="Accept" />
+        <option name="value" value="*/*" />
+      </KeyValuePair>
+      <KeyValuePair>
+        <option name="key" value="Cache-Control" />
+        <option name="value" value="no-cache" />
+      </KeyValuePair>
+    </list>
+  </option>
+  <option name="parameters">
+    <list>
+      <KeyValuePair>
+        <option name="key" value="phone_num" />
+        <option name="value" value="13911190463" />
+      </KeyValuePair>
+    </list>
+  </option>
+  <option name="parametersEnabled" value="true" />
+  <option name="haveTextToSend" value="false" />
+  <option name="haveFileToSend" value="false" />
+  <option name="isFileUpload" value="false" />
+  <option name="textToSend" value="" />
+  <option name="filesToSend" value="" />
+</RestClientRequest>

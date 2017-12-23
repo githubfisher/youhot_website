@@ -1,0 +1,165 @@
+<?php
+$this->layout->load_css("/admin/modules/datatables/datatables.min.css");
+$this->layout->load_js('admin/modules/datatables/datatables.js');
+$this->layout->load_js('admin/plugins/bootstrap/js/bootstrap-confirmation.js');
+$this->layout->placeholder('title', '品牌税重管理');
+?>
+<style>
+    .container .row{
+        width:84%;
+    }
+    .col-md-offset-01{
+        margin-left: 2%;
+    }
+    .edit2{
+        display: none;
+    }
+</style>
+<div class="m-center-right" style="height:auto">
+    <div class="m-center-top">
+        <div class="col-sm-4"><h3>品牌税重管理</h3></div>
+        <!-- <div class="col-sm-8"><h3 class="text-right"><a href="/admin/category/brand_category_list" class="product-add btn btn-purple pull-right">品牌税重管理</a></h3></div> -->
+    </div>
+    <div class="m-content">
+        <table id="list-table" class="table table-striped table-bordered" cellspacing="0" width="100%">
+	    <tr>
+		<td>
+                    <select id="brand" class="form-control" data-pid="" aria-invalid="false">
+                        <?php
+                            foreach ($brands['list'] as $b) {
+                        ?>
+                        <option value="<?php echo $b['userid']; ?>__<?php echo $b['nickname']; ?>"><?php echo $b['nickname']; ?></option>
+                        <?php } ?>
+                    </select>
+                </td>
+	        <td>
+		    <select id="category" class="form-control" data-pid="" aria-invalid="false">
+			<?php
+			    getTreeData2($cates);
+                	?>
+		    </select>
+		</td>
+		<td><input id="weight" placeholder="重量 KG" value="" style="width:80px;line-height:2;border-radius:4px;box-shadow: inset 0 1px 1px rgba(0,0,0,.075);"></td>
+		<td><input id="tax_rate" placeholder="税率 0.01" value="" style="width:80px;line-height:2;border-radius:4px;box-shadow: inset 0 1px 1px rgba(0,0,0,.075);"></td>
+		<td>
+		    <a href="javascript:void(0);" class="product-add btn btn-purple pull-right" onclick="subt();">新增</a>
+		</td>
+	    </tr>
+        </table>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 col-md-offset-01">
+            <table class="table text-center">
+                <thead>
+                    <tr style="font-weight:bold;">
+                        <td>ID</td>
+                        <td>品牌名称</td>
+                        <td>分类名称</td>
+                        <td>重量（Kg）</td>
+                        <td>关税税率</td>
+                        <td>启用状态</td>
+                        <td>操作</td>
+                    </tr>
+                </thead>
+                <tbody class=".table-striped">
+                <?php
+                    $count = 0;
+                    foreach($arr as $item){
+                    $count++;
+                ?>
+                    <tr id="<?php echo $item['id']; ?>a">
+                        <td><?php echo $item["id"];?></td>
+                        <td><?php echo $item["brand_name"];?></td>
+                        <td><?php echo $item["category_name"];?></td>
+                        <td><?php echo $item["weight"];?></td>
+                        <td><?php echo $item["tax_rate"];?></td>
+			<?php if ($item["status"] == 1) { ?>
+                            <td>是</td>
+                        <?php } else { ?>
+                            <td>否</td>
+                        <?php } ?>
+                        <td>
+			     <a href="javascript:void(0);" onclick="edit('<?php echo $item['id']; ?>', '<?php echo $item['status']; ?>');">编辑</a>
+                        </td>
+                    </tr>
+		    <tr id="<?php echo $item['id']; ?>b" class="edit2">
+                        <td><?php echo $item["id"];?></td>
+                        <td><?php echo $item["brand_name"];?></td>
+                        <td><?php echo $item["category_name"];?></td>
+                        <td><input type="text" id ="<?php echo $item['id'] ?>wgt" value="<?php echo $item['weight'] ?>"></td>
+                        <td><input type="text" id ="<?php echo $item['id'] ?>trate" value="<?php echo $item['tax_rate'] ?>"></td>
+                        <td>
+                            <select id="<?php echo $item['id'] ?>status" class="form-control" data-pid="" aria-invalid="false">
+                                <option value="1">是</option>
+                                <option value="0">否</option>
+                            </select>
+                        </td>
+                        <td>
+                            <a href="javascript:void(0);" onclick="sub('<?php echo $item['id']; ?>');">提交</a>
+                            <a href="javascript:void(0);" onclick="cancel('<?php echo $item['id']; ?>');">取消</a>
+                        </td>
+                    </tr>
+                <?php }?>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<script>
+function edit(id, status)
+    {
+        $("#"+id+"status").val(status);
+        $("#"+id+"a").hide();
+        $("#"+id+"b").show();
+    }
+function cancel(id)
+    {
+        $("#"+id+"b").hide();
+        $("#"+id+"a").show();
+    }
+function sub(id)
+    {
+        var status = $("#"+id+"status").val();
+        var tax_rate = $("#"+id+"trate").val();
+        var weight = $("#"+id+"wgt").val();
+        var update_url = '/admin/category/update_bc_rate_info';
+        $.post(update_url,{id, status, weight, tax_rate},function (data) {
+            if (data.res == 0) {
+                showSuccess();
+                window.location.reload();
+            } else {
+                showErrorMessage(data.hint);
+            }
+        }, 'json');
+    }
+function subt()
+{
+   var tax_rate = parseFloat($("#tax_rate").val());
+   var weight = $("#weight").val();
+   var brand = $("#brand").val();
+   var category = $("#category").val();
+   var ba = brand.split("__");
+   var brand_id = ba[0];
+   var brand_name = ba[1];
+   var ca = category.split("__");
+   var category_id = ca[0];
+   var category_name = ca[1]; 
+
+   if ((tax_rate <= 0)  || isNaN(tax_rate)) {
+	alert('税率不能为空！');
+	return true;
+   }
+
+   var sub_url = '/admin/category/add_bc_rate_info';
+   $.post(sub_url,{brand_id, category_id, brand_name, category_name, weight, tax_rate},function (data) {
+      if (data.res == 0) {
+          showSuccess();
+          window.location.reload();
+      } else {
+          showErrorMessage(data.hint);
+      }
+   }, 'json');
+}
+</script>

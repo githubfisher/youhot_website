@@ -1,0 +1,565 @@
+<?php
+$this->layout->load_js('admin/plugins/jquery-validation/js/jquery.validate.js');
+$this->layout->load_js("admin/modules/cropit/jquery.cropit.js");
+//$this->layout->load_js("admin/modules/cropit/vendor.js");
+$this->layout->placeholder('title', element('title', $collection, ''));
+$this->layout->load_js('admin/modules/jsrender/jsrender.min.js');
+
+?>
+<style>
+
+    .cropit-image-preview {
+        background-size: cover;
+        border: 1px solid ;
+        border-radius: 3px;
+        margin-top: 7px;
+        width: 712px;
+        height: 292px;
+        cursor: move;
+    }
+
+    .col-cover-image {
+        width: 100%;
+        position: relative;
+        min-height: 120px;
+        border: 2px dotted #CACACA;
+    }
+    .col-cover-image img{
+        max-width:100%;
+        max-height:100%;
+    }
+
+    .col-cover-image span {
+        top: 40%;
+        width:7em;
+    }
+
+    .col-item-image {
+        width: 100%;
+        position: relative;
+    }
+
+    .col-item-image img {
+        width: 100%;
+        border:1px solid #e8e8e8;
+        border-bottom-width: 0px;
+    }
+
+    .col-item-image span {
+        top: 40%;
+        width:6em;
+    }
+
+    .cropit-image-background {
+
+        cursor: auto;
+    }
+
+    .image-size-label {
+        margin-top: 10px;
+    }
+
+
+    /*
+     * If the slider or anything else is covered by the background image,
+     * use relative or absolute position on it
+     */
+    input.cropit-image-zoom-input {
+        position: relative;
+        display: inline;
+        width: 60%
+    }
+
+    /* Limit the background image by adding overflow: hidden */
+    #image-cropper {
+        overflow: hidden;
+    }
+
+    /* Show load indicator when image is being loaded */
+    .cropit-image-preview.cropit-image-loading .spinner {
+        opacity: 1;
+    }
+
+    /* Show move cursor when image has been loaded */
+    .cropit-image-preview.cropit-image-loaded {
+        cursor: move;
+    }
+
+    /* Gray out zoom slider when the image cannot be zoomed */
+    .cropit-image-zoom-input[disabled] {
+        opacity: .1;
+    }
+
+    /* Hide default file input button if you want to use a custom button */
+    input.cropit-image-input {
+        visibility: hidden;
+    }
+
+    /* The following styles are only relevant to when background image is enabled */
+
+    /* Translucent background image */
+    .cropit-image-background {
+        opacity: .1;
+    }
+
+    /* Style the background image differently when preview area is hovered */
+    .cropit-image-background.cropit-preview-hovered {
+        opacity: .3;
+    }
+
+    ul.ul-item li {
+        list-style: none;
+        float: left;
+        width: 30%;
+        min-height: 320px;
+        margin-right: 3%;
+
+    }
+
+    ul.ul-item li textarea {
+        width: 100%;
+        padding: 17px 10px;
+        border: 1px solid #E5E5E5;
+    }
+
+    ul.ul-item li.item-placeholder {
+        border: 1px dashed #e5e5e5;
+        height: 500px;
+        min-height: 250px !important;
+        position: relative;
+    }
+
+
+.modal-header{
+    background:#000;
+}
+    .modal-header h4{
+        color:#fff;
+    }
+    .modal-body{
+        background-color: #F0F3F4;
+    }
+    .modal-footer {
+         border-top: 0;
+        background-color: #F0F3F4;
+    }
+    .modal-body ul li{
+        width:30%;
+    }
+    .modal-body ul li{
+        width: 28%;
+        float: left;
+        height: 83px;
+        background: #fff;
+        list-style-type: none;
+        border: 1px solid #e8e8e8;
+        padding: 15px;
+        margin: 1% 2.3%;
+    }
+.modal-body ul li span{
+        font-size:12px;
+        color:#1E1E1E;
+}
+.modal-body ul li input:first-child{
+    display: block;
+    float: left;
+    width: 14px;
+    margin-top: 20px;
+    margin-right: 5px;
+    height: 14px;
+    margin-left: -38px;
+}
+    .modal-body ul li label span img{
+        width:50px;height:50px;
+        display:block;
+        float:left;
+        margin-right:10px;}
+    button.close{    filter: alpha(opacity=60);
+        opacity: .6;
+        color: #ffffff !important;
+    }
+    .modal-footer button{
+        width:136px;
+        height:46px;
+    }
+    .modal-body ul li label{
+        font-weight: normal;
+        margin-bottom: auto;
+    }
+
+    div.sel-relate-p{
+        height: 42px;
+        border: 1px solid #BFB6B6;
+        text-align: center;
+        line-height:42px;
+        overflow:hidden;
+        cursor:pointer;
+    }
+    div.rp-content{
+        height:100%;
+        color: #5d5d5d;
+    }
+    div.rp-content img{
+        height:70%;
+    }
+
+</style>
+<div class="m-center-right">
+    <form id="col-edit-form" action="/collection/save" method="post">
+        <input type="hidden" name="collection_id" value="<?= $collection['id'] ?>"/>
+        <input type="hidden" name="status" value="<?=COLLECTION_STATUS_DRAFT?>"/>
+
+        <div class="m-center-top">
+            <div class="col-sm-4"><h3>专辑管理</h3></div>
+            <div class="col-sm-8"><h3 class="text-right">
+                    <input type="submit" class="btn btn-purple" value="保存专辑"/>
+                    <input type="button" class="btn btn-light-purple" onclick="history.back()" value="返回"/>
+                </h3>
+            </div>
+        </div>
+
+        <div class="m-content">
+            <section class="wrapper" style='width:100%;'>
+                <div class="col-lg-12">
+                    <section class="box ">
+                        <header class="panel_header">
+                            <h2 class="title pull-left">编辑专辑</h2>
+                        </header>
+                        <div class="content-body">
+                            <div class="row">
+                                <div class="col-md-5 col-xs-12">
+                                    <div class="form-group">
+                                        <label class="form-label" for="field-1">封面</label>
+
+                                        <div class="col-cover-image" data-toggle="modal" data-target="#crop-image-modal">
+                                            <input type="hidden" name="cover_image" value="<?= $collection['cover_image'] ? $collection['cover_image'] : '' ?>"/>
+                                            <img id="col-cover-image" src="<?= $collection['cover_image'] ? $collection['cover_image'] . '@200h_1wh' : 'data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs%3D' ?>"/>
+                                            <span class="btn btn-half-black btn-corner center-btn" >+ 添加封面</span>
+                                        </div>
+                                        <div class="desc mt1em">封面图片 尺寸需大于710*290像素,添加后可以裁剪</div>
+
+                                    </div>
+                                </div>
+                                <div class="col-md-7 col-xs-12">
+                                    <div class="form-group">
+                                        <label class="form-label" for="txtitle">标题</label>
+
+                                        <div class="controls">
+                                            <input type="text" placeholder="标题" class="form-control" name="title"
+                                                   id="txtitle" value="<?= $collection['title'] ?>" required>
+
+                                            <div>
+                                                <span class="error"><?= form_error('title') ?></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label" for="field-1">描述</label>
+
+                                        <div class="controls">
+                                            <textarea name="description" style="width:100%" rows="5" id="field-1"  class="form-control"><?= $collection['description'] ?></textarea>
+
+                                            <div>
+                                                <span class="error"><?= form_error('description') ?></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </section>
+    </form>
+    <section class="wrapper" style='width:100%;'>
+        <div class="col-lg-12">
+            <section class="box ">
+                <header class="panel_header">
+                    <h2 class="title pull-left">内容列表</h2>
+                </header>
+                <div class="content-body clearfix">
+
+                    <ul class="ul-item">
+                        <?php foreach ($collection['item_list'] as $item): ?>
+                            <li>
+                                <form action="/collection/album/update" method="post" class="col-item-form">
+                                    <input type="hidden" name="item_id" value="<?= $item['id'] ?>"/>
+
+                                    <div class="form-group">
+                                        <div class="col-item-image" data-toggle="modal" data-target="#crop-item-image-modal">
+                                            <input type="hidden" name="content" value="<?= element('content', $item, '') ?>"/>
+                                            <img src="<?= element('content', $item, '') . '@200h_1wh' ?>"/>
+                                            <span class="btn btn-half-black btn-corner center-btn">设置图片</span>
+                                        </div>
+                                        <div><textarea rows="3" name="text"><?= $item['text'] ?></textarea></div>
+
+                                        <div style="margin:9px auto 13px;">
+                                            <button type="submit" class="btn btn-black btn-nocorner" style="width:48%">
+                                                <i class="icon icon-save"></i>保存
+                                            </button>
+                                            <input type="button" value="X 删除" class="btn btn-winered btn-nocorner item-del-btn pull-right" style="width:48%;" data-item-id="<?= $item['id'] ?>" />
+                                        </div>
+
+
+                                        <div class="sel-relate-p ">
+                                            <input type="hidden" value="<?= $item['product_id'] ?>" name="product_id"/>
+                                            <div class="rp-ctner">
+                                            <?php if(!empty($item['product_id'])):?>
+                                                <div class="rp-content">
+                                                <img src="<?= array_key_exists('product_cover_image', $item) && !empty($item['product_cover_image'])? $item['product_cover_image'].'@20h' : 'data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs%3D'?>" height="20px" class=" col-relate-product"/>
+                                                <span><?= $item['product_title'] ?></span>
+                                                </div>
+                                            <?php else:?>
+                                                <i class="icon icon-select"></i><span>选择商品</span>
+                                            <?php endif;?>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </form>
+                            </li>
+                        <?php endforeach; ?>
+                        <li class="item-placeholder">
+                            <div class="btn item-add-btn  center-btn" style="font-size: 400%;color: #D3D3D3;top:40%">
+                                +
+                            </div>
+
+                        </li>
+                    </ul>
+                </div>
+            </section>
+        </div>
+    </section>
+</div>
+
+
+<!-- General section box modal start -->
+<div class="modal" id="crop-image-modal" tabindex="-1" role="dialog" aria-labelledby="ultraModal-Label" aria-hidden="true">
+    <div class="modal-dialog animated fadeInDown modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="ultraModal-Label">专辑封面图片<span class="desc" style="margin-left:2em;color:gray;font-size:80%">尺寸710*290</span></h4>
+            </div>
+            <div class="modal-body">
+
+                <div id="col-cover-image-cropper" data-cid="<?= element('id', $collection, 0) ?>" class="sub-section image-cropper image-background-border">
+                    <form action="" id="cover-image-form" method="">
+                        <div class="container-fluid">
+                            <div class="demo">
+                                <div class="column">
+                                    <div class="cropit-image-preview-container">
+
+                                        <div class="cropit-image-preview" style="">
+
+                                            <div class="spinner">
+                                                <div class="spinner-dot">
+                                                </div>
+                                                <div class="spinner-dot">
+                                                </div>
+                                                <div class="spinner-dot">
+                                                </div>
+                                            </div>
+                                            <div class="error-msg">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="slider-wrapper">
+                                        <span class="glyphicon glyphicon-picture"></span>
+                                        <input type="range" class="cropit-image-zoom-input custom">
+                                        <span class="glyphicon glyphicon-picture picture-large"></span>
+                                    </div>
+                                </div>
+                                <div class="column">
+                                    <div class="btns">
+                                        <input type="file" name="file" class="cropit-image-input custom">
+
+                                        <div class="btn select-image-btn btn-primary">
+                                            <span class="glyphicon glyphicon-picture"></span> 选择新图片
+                                        </div>
+                                        <div class="btn upload-btn btn-success">
+                                            <span class="glyphicon glyphicon-cloud-upload"></span>
+                                            上传
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <input type="hidden" name="filename">
+                            <input type="hidden" name="file_content">
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+<div class="modal" id="crop-item-image-modal" tabindex="-1" role="dialog" aria-labelledby="ultraModal-Label" aria-hidden="true">
+    <div class="modal-dialog animated fadeInDown modal-lg " role="document" >
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="ultraModal-Label">专辑内容图片<span class="desc" style="margin-left:2em;color:gray;font-size:80%">尺寸650*680</span></h4>
+            </div>
+            <div class="modal-body">
+
+                <div id="col-item-image-cropper" data-cid="<?= element('id', $collection, 0) ?>" class="sub-section image-cropper image-big-cropper image-background-border">
+                    <form action="" id="" method="">
+                        <div class="container-fluid">
+
+                            <div class="demo">
+                                <div class="column">
+                                    <div class="cropit-image-preview-container">
+
+                                        <div class="cropit-image-preview" style="width: 650px;height:680px">
+
+                                            <div class="spinner">
+                                                <div class="spinner-dot">
+                                                </div>
+                                                <div class="spinner-dot">
+                                                </div>
+                                                <div class="spinner-dot">
+                                                </div>
+                                            </div>
+                                            <div class="error-msg">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="slider-wrapper">
+                                        <span class="glyphicon glyphicon-picture"></span>
+                                        <input type="range" class="cropit-image-zoom-input custom">
+                                        <span class="glyphicon glyphicon-picture picture-large"></span>
+                                    </div>
+                                </div>
+                                <div class="column">
+                                    <div class="btns">
+                                        <input type="file" name="file" class="cropit-image-input custom">
+
+                                        <div class="btn select-image-btn btn-primary">
+                                            <span class="glyphicon glyphicon-picture"></span> 选择新图片
+                                        </div>
+                                        <div class="btn upload-btn btn-success">
+                                            <span class="glyphicon glyphicon-cloud-upload"></span>
+                                            上传
+                                        </div>
+                                        <div class="btn  btn-default auto-height-btn"  style="margin-top: 2em">
+                                            <span class="glyphicon glyphicon-resize-small"></span>
+                                            自适应高度
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <input type="hidden" name="filename">
+                            <input type="hidden" name="file_content">
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="sel-product-modal">
+    <div class="modal-dialog  modal-lg">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">选择商品</h4>
+            </div>
+
+            <div class="modal-body clearfix">
+
+                loading...
+
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-purple" data-dismiss="modal">添加</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- modal end -->
+<script id="product-item-tpl" type="text/x-jsrender">
+<li>
+    <label>
+    <input type="radio" name="p-item-checkbox" value="{{:id}}"/>
+    <span>
+    <img src="{{if cover_image}}{{:cover_image}}@50h{{else}}data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs%3D{{/if}}" alt="{{:title}}" width="50px" />
+    <span>{{:title}}</span>
+    </span>
+    </label>
+</li>
+</script>
+<script id="item-add-tpl" type="text/html">
+    <li>
+        <form action="/collection/album/add" method="post" class="col-itemadd-form">
+            <input type="hidden" name="collection_id" value="<?= $collection['id'] ?>">
+
+            <div class="form-group">
+                <div class="col-item-image" data-toggle="modal" data-target="#crop-item-image-modal">
+                    <input type="hidden" name="content" value=""/>
+                    <img src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs%3D"/>
+                    <span class="btn btn-black btn-corner center-btn">设置图片</span>
+                </div>
+                <div>
+                    <textarea rows="3" name="text" style="border:1px solid #E5E5E5;" placeholder="介绍"></textarea>
+                </div>
+                <div style="margin:9px auto 13px;">
+                    <button type="submit" class="btn btn-black btn-nocorner" style="width:48%">
+                        <i class="icon icon-save"></i>保存
+                    </button>
+                    <input type="button" value="X 取消" class="btn btn-winered btn-nocorner  pull-right item-cancel-btn" style="width:48%;" />
+                </div>
+                <div class="sel-relate-p">
+                    <input type="hidden" value="" name="product_id"/>
+                    <div class="rp-ctner">
+                        <i class="icon icon-select"></i><span>选择商品</span>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </li>
+</script>
+<script type="text/javascript">
+    $(function(){
+        $('ul.ul-item').on('click','.sel-relate-p',function(){
+            $('#sel-product-modal').modal('show', {backdrop: 'static'}).data('data-item', $(this));
+            $.post(CONFIG.product.my_list, {'rt': 'json', lm: 100, 'userid': "<?=( $this->_data['usertype'] == USERTYPE_BUYER )?'':$responsible_userid?>"}, function (data) {
+                var tpl = $.templates("#product-item-tpl");
+                jQuery('#sel-product-modal .modal-body').html("<ul>"+tpl.render(data.list)+"</ul>");
+            }, 'json');
+            return false;
+        })
+
+        $('ul.ul-item').on('click','.rp-del',function(e){
+            $(this).parent().find('img').attr({'src':'','alt':''});
+            var _parent = $(this).parents('div.sel-relate-p');
+            _parent.find('input[name=product_id]').val('0');
+            _parent.find('.rp-ctner').html($('<span>选择商品</span>'));
+            return false;
+        })
+        $('.sel-relate-p').on('mouseenter', '.rp-ctner>.rp-content', function () {
+            if ($(this).parents('.sel-relate-p').find('input[name=product_id]').val() > 0) {
+                $(this).append($('<a class="glyphicon glyphicon-remove-circle rp-del" href=""></a>'));
+            }
+        });
+        $('.sel-relate-p').on('mouseleave', '.rp-ctner>.rp-content', function () {
+            $('a:last', this).remove();
+        });
+
+    });
+
+
+</script>
+

@@ -1,0 +1,15 @@
+body,html{margin:0;padding:0;}
+
+.success-content{width:290px;
+	height:60px;position: absolute;left:0;top:0;right:0;bottom:0;margin:auto auto}
+.success-content img{width:60px;height:60px;display:block;float:left;}
+.success-content span{text-align:center;
+	margin-left:13px;
+	line-height:60px;font-size:26px;color:#3F3F3F;}
+
+
+
+
+
+
+

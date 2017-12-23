@@ -1,0 +1,180 @@
+<?php
+$this->layout->placeholder('title', '订单详情');
+$this->layout->load_css('admin/css/indent.css');
+$this->layout->load_js('admin/plugins/jquery-validation/js/jquery.validate.js');
+?>
+<style>
+    .message{
+        border-left: 2px solid #3c3c3c;
+        padding-left: 7px;
+        line-height: 10px;
+        margin-top: 17px;
+        margin-bottom: 10px;
+        font-weight:bold;
+        font-size:14px;
+    }
+    .line{
+        height: 1px;
+        border-top: 1px solid #e8e8e8;
+        margin: 14px -23px 18px;
+    }
+    .dingdan-middle .row{font-size:12px;margin-top:15px}
+</style>
+<div class="m-center-right" style="height:auto">
+    <div class="m-center-top">
+        <div class="col-sm-4"><h3>订单详情</h3></div>
+        <div class="col-sm-8"><h3 class="text-right"><a href="/admin/order/edit/<?=$order['order_id']?>" class="product-add btn btn-purple pull-right " data-author="<?= $responsible_userid ?>"><i span="icon icon-edit"></i>编辑订单</a></h3></div>
+
+    </div>
+
+    <div class="m-content">
+        <!--顶部结束-->
+
+        <!-- 中部内容开始 -->
+        <div class="ding-center" style="width:100%;height:auto;border:1px solid #e8e8e8">
+            <div class="dingdan"><span>订单信息</span></div>
+            <div class="dingdan-middle">
+                <div class="message">买家信息</div>
+                <div class="row">
+                    <div class="col-sm-2 text-right">用户名：</div>
+                    <div class="col-sm-2"><?=$order['buyer_username']?></div>
+                    <div class="col-sm-2 text-right">昵称：</div>
+                    <div class="col-sm-6"><?= $order['buyer_nickname'] ?></div>
+                    </div>
+                <div class="row">
+                    <div class="col-sm-2 text-right">地区：</div>
+                    <div class="col-sm-2"><?= $order['buyer_city'] ?></div>
+                    <div class="col-sm-2 text-right">联系电话：</div>
+                    <div class="col-sm-6"><?=$order['buyer_username']?></div>
+                </div>
+
+                <div class="line"></div>
+
+                <!-- 订单信息 -->
+                <div class="message">订单信息</div>
+                <table class="table-box" cellspacing=0;cellpadding=0;>
+                    <tr style="background:#F4F5F9;height:40px;border:1px solid #ccc">
+                        <td width="350px" ;>订单信息</td>
+                        <td>属性</td>
+                        <td>商品总价</td>
+                        <td>定金</td>
+                        <td>尾款</td>
+                        <td>优惠</td>
+                        <td>运费</td>
+                        <td>状态</td>
+                    </tr>
+                    <tr id="tdbox">
+                        <td>
+                            <div style="width:100%;height:100%;margin:0 auto;text-align:center;">
+                                <img src="<?= $order['product_cover_image'] ?>" alt="" style="width:60px;height:70px;float:left;margin-left:20px;display:block;margin-top:10px;">
+                                <span style="line-height:20px;height:76px;width:200px;padding-left:10px;display:block;
+
+                                padding-top:20px"><?= $order['product_title'] ?></span>
+                            </div>
+                        </td>
+                        <td>￥<?= $order['product_presale_price'] ?> <br><span><?= $order['size_name'] ?></span><span><?= $order['color_name'] ?></span></td>
+                        <td>￥<?= $order['product_presale_price'] ?></td>
+                        <td>￥<?= $order['pre_paid_money'] ?></td>
+                        <td>￥<?= $order['last_paid_money'] ?></td>
+
+                        <td>￥<?= $order['last_pay_coupon_value'] ?></td>
+                        <td>￥<?= $order['freight'] ?></td>
+                        <td style="color:#EC1379"><?= format_order_status($order['status']) ?></td>
+                    </tr>
+
+
+                </table>
+
+                <!-- 订单编号 -->
+                <div class="dingdanbianhao">
+                    <div class="ding-left" style="line-height:30px;padding-top:10px">
+                        订单编号：<span><?= $order['order_id'] ?></span><br>
+                        订单时间：<span><?= $order['create_time'] ?></span>
+                    </div>
+                    <div class="ding-right"><span></span>
+                    </div>
+                </div>
+                <div class="line"></div>
+                <div class="row">
+                    <div class="col-md-2"><span class="message">收货信息</span></div>
+                    <div class="col-md-10">
+                        <?php if ($order['status'] == ORDER_STATUS_LAST_PAID): ?>
+
+                            <button data-toggle="modal" data-target="#shipModal">发货</button>
+                        <?php endif; ?>
+                    </div>
+                </div>
+
+                <div class="dingdan-bottom">
+                    收货地址:&nbsp&nbsp<span><?= $order['address'] ?></span></div>
+                <div class="dingdan-bottom">运送方式:&nbsp&nbsp<span><?= $order['courier_company'] ?></span></div>
+                <div class="dingdan-bottom">快递单号:&nbsp&nbsp <span><?= $order['courier_number'] ?></span></div>
+                <div class="dingdan-bottom">卖家留言: &nbsp&nbsp<span><?= $order['memo'] ?></span></div>
+
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="shipModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">发货信息</h4>
+            </div>
+            <form action="/order/update" id="ship-form" method="post">
+                <div class="modal-body">
+
+                    <input type="hidden" name="order_id" value="<?= $order['order_id'] ?>">
+                    <input type="hidden" name="status" value="<?= ORDER_STATUS_SHIP_START ?>">
+
+                    <div class="form-group">
+                        <label for="recipient-name" class="control-label">快递公司:</label>
+                        <input type="text" class="form-control" id="recipient-name" name="courier_company" value="<?=$order['courier_company']?>">
+                    </div>
+                    <div class="form-group">
+                        <label for="courier_number" class="control-label">快递单号:</label>
+                        <input type="text" class="form-control" id="courier_number" name="courier_number" value="<?=$order['courier_number']?>">
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button type="submit" class="btn btn-primary">确定</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+
+        $('form#ship-form').validate({
+                rules: {
+                    // simple rule, converted to {required:true}
+                    courier_company: "required",
+                    courier_number: "required",
+                },
+                submitHandler:function(form){
+//                    console.log($(this).valid());
+                    $.post($(form).attr('action'), $(form).serialize(), function (data) {
+                        if (data.res == '0') {
+                            showSuccess();
+                            location.reload();
+                        } else {
+                            showErrorMessage(data.hint);
+                        }
+                    }, 'json');
+                    return false;
+                }
+            }
+        )
+
+
+    });
+</script>
+

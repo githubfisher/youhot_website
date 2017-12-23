@@ -1,0 +1,227 @@
+<?php
+
+class Collection extends Admin_Controller
+{
+
+    public $responsible_userid;  //负责的设计师,主要给助理用
+
+    function __construct()
+    {
+        parent::__construct();
+//		$this->output->enable_profiler(TRUE);
+
+        //控制自己的权限
+        if(!$this->_has_collection_admin_role()){
+            $this->_error(bp_operation_user_forbidden,$this->lang->line('bp_operation_user_forbidden_hint'));
+        }
+
+        $this->load->model('collection_model');
+        
+        $this->_data['responsible_userid'] = $this->responsible_userid;
+
+    }
+    /*
+       *	默认检查用户是否有管理员权限，如果没有，直接返回相应的错误处理方法
+       */
+    private function _has_collection_admin_role($collection_id=null)
+    {
+        $perm = false;
+        if ($this->_data['usertype'] == USERTYPE_DESIGNER || $this->_data['usertype'] == USERTYPE_BUYER ) {
+            $this->responsible_userid = $this->userid;   //self
+            $perm = true;
+        }
+        if ($this->_data['usertype'] == USERTYPE_USER && $this->has_admin_role(ADMIN_ROLE_COLLECTION)) {
+            $responsible_userid = $this->user_model->get_responsible_userid($this->userid);
+            if ($responsible_userid) {
+                $this->responsible_userid = $responsible_userid;
+                $perm = true;
+            } else {
+                $perm =  false;
+            }
+        }
+
+        if($perm && !empty($collection_id)){
+            $res = $this->collection_model->get_owner($collection_id);
+            $owner = element('author', $res, null);
+            if ($owner == $this->responsible_userid) {
+                $perm = true;
+            }
+        }
+
+        if ($this->_data['usertype'] == USERTYPE_ADMIN && $this->has_admin_role(ADMIN_ROLE_COLLECTION)) {
+            $this->responsible_userid = '';   //空,选择所有的
+            $perm = true;
+        }
+
+        return $perm;
+    }
+
+    public function index()
+    {
+//
+//		$this->_data ['res'] = bp_operation_ok;
+//        $template = 'admin/collection/index';
+//        $this->template($template, $this->_data);
+        $this->collection_list();
+    }
+
+
+    public function  create()
+    {
+        $author = $this->responsible_userid;
+        if($this->is_admin){
+            $author = $this->input->get_post('author');   //管理员可以给设计师添加内容
+        }
+
+        $filter = array('title','description','background_image','cover_image');
+        $data = filter_data($this->input->post(),$filter,false);
+        $data['author'] = $author;
+
+//        $data = array('author' => $author, 'title' => $title, 'description' => $description, 'background_image' => $background_image, 'cover_image' => $cover_image);
+        //Ready to compromise unstable requirements;
+        $res = $this->collection_model->create($data);
+        if ($res == DB_OPERATION_FAIL) {
+            log_message('error', 'create product wrong:' . json_encode($data));
+            $this->_error(bp_operation_fail, $this->lang->line('bp_operation_fail_hint'));
+        }
+        $res = filter_data($res, $this->config->item('json_filter_collection_detail'));
+        $this->_result(bp_operation_ok, $res);
+
+    }
+
+    public function edit($collection_id = null)
+    {
+
+        $this->_data ['res'] = bp_operation_ok;
+        $this->_data['collection_id'] = $collection_id;
+
+        if (empty($collection_id)) {
+            $collection_id = $this->_get_collection_id();
+        }
+
+        $res = $this->collection_model->info($collection_id);
+        $this->_data['collection'] = $res;
+
+        if($res['status']!=COLLECTION_STATUS_DRAFT){
+            $this->collection_model->update_info($collection_id,array('status'=>COLLECTION_STATUS_DRAFT));   //move into draft
+        }
+        $template = 'admin/collection/edit';
+
+        $this->template($template, $this->_data);
+    }
+
+
+
+    private function _get_collection_id()
+    {
+        $collection_id = $this->input->get_post('collection_id');
+        if (empty($collection_id)) {
+            log_message('error', 'No collection id:' . json_encode($collection_id));
+            $this->_error(bp_operation_verify_fail, $this->lang->line('error_verify_fail_need_item_id'), true);
+        }
+        return $collection_id;
+    }
+
+    public function collection_list()
+    {
+        if($this->is_admin && $this->has_admin_role(ADMIN_ROLE_COLLECTION)){
+            $this->_data['can_audit'] = true;
+        }
+        $template = 'admin/collection/list';
+        $this->template($template, $this->_data);
+        return;
+    }
+
+    public function stat(){
+        $this->setOutputTpl('admin/stat/collection');
+        $this->_result(bp_operation_ok,$this->_data);
+    }
+
+    private function _check_permission_and_return($collection_id)
+    {
+        if (!$this->_has_collection_admin_role($collection_id)) {
+            $this->_error(bp_operation_user_forbidden, $this->lang->line('bp_operation_user_forbidden_hint'), 403);
+        }
+        return true;
+    }
+
+
+    /**
+     * publish
+     * [over]
+     */
+
+    public function publish($status=COLLECTION_STATUS_PUBLISHED)
+    {
+        //@todo 只有管理员可以发布,设计师自己不能发布
+        $_POST = $_REQUEST;
+        $this->form_validation->set_rules('collection_id', 'collection id', 'trim|integer|required');
+        if ($this->form_validation->run() == FALSE) {
+            $this->_error(bp_operation_verify_fail, validation_errors(' ', ' '));
+        }
+        $collection_id = $this->_get_collection_id();
+        $this->_check_permission_and_return($collection_id);
+//        $publish_time current_time
+        $up_data = array();
+        if($status == COLLECTION_STATUS_PUBLISHED){
+            $up_data['publish_time'] = standard_date('DATE_MYSQL');
+        }
+        $up_data['status'] = $status;
+
+        $res = $this->collection_model->update_info($collection_id, $up_data);
+        $this->_deal_res($res);
+    }
+
+    public function unpublish()
+    {
+        $this->publish(COLLECTION_STATUS_DRAFT);
+    }
+    public function to_audit()
+    {
+        $this->publish(COLLECTION_STATUS_INAUDIT);
+    }
+
+    public function delete()
+    {
+
+        $_POST = $_REQUEST;
+        $this->form_validation->set_rules('collection_ids', 'collection id', 'required');
+        if ($this->form_validation->run() == FALSE) {
+            $this->_error(bp_operation_verify_fail, validation_errors(' ', ' '));
+        }
+        $collection_ids = $this->input->get_post('collection_ids');
+//        $this->_check_permission_and_return($collection_ids);
+//        $publish_time current_time
+        $limit_author = null;
+        if(!$this->is_admin){
+            $limit_author = array('author'=>$this->responsible_userid);
+        }
+        $res = $this->collection_model->del($collection_ids,$limit_author);
+        $this->_deal_res($res);
+    }
+
+
+    /**
+     * 申请专辑编辑
+     *
+     * [over]
+     */
+    public function apply_edit()
+    {
+        $_POST = $_REQUEST;
+        $this->form_validation->set_rules('collection_id', 'collection id', 'trim|integer|required');
+
+        if ($this->form_validation->run() == FALSE) {
+            $this->_error(bp_operation_verify_fail, validation_errors(' ', ' '));
+        }
+        $collection_id = $this->_get_collection_id();
+        $this->_check_permission_and_return($collection_id);
+//        $publish_time current_time
+        $up_data = array();
+        $up_data['status_plus'] = COLLECTION_STATUS_APPLY_EDIT;   //a new field
+
+        $res = $this->collection_model->update_info($collection_id, $up_data);
+        $this->_deal_res($res);
+    }
+
+}
